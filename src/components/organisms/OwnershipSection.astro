@@ -15,7 +15,13 @@ const t = text(locale).ownership;
     <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.intro} />
     <div class="benefit-grid">
       {t.cards.map((item, i) => (
-        <BenefitCard {...item} number={["↗", "✓", "∞"][i]} />
+        <BenefitCard
+          {...item}
+          icon={
+            ["arrow-up-right", "check", "infinity"][i] as
+              "arrow-up-right" | "check" | "infinity"
+          }
+        />
       ))}
     </div>
     <p class="cost-note">{t.cost}</p>

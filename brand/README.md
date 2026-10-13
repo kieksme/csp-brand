@@ -29,6 +29,8 @@ Ein kantiges Headset mit geradem Mikrofonarm steht für Zuhören und den direkte
 
 Die ausführbaren Tokens liegen in `src/quarks/tokens.css`. Inter Variable wird lokal geladen. Fließtext 400, Navigation 550–600, Überschriften 650. Überschriften sind kompakt und groß, Fließtext hat großzügige Zeilenhöhe. Limette nie für kleinen Text auf heller Fläche nutzen. Abstände basieren auf 4 px, Komponentenradius 8 px; Breakpoints 480/820/1100 px werden in der Website konsistent gepflegt. Animationen sind dezent und bei reduzierter Bewegung deaktiviert.
 
+UI-Icons kommen aus Lucide (`@lucide/astro`) und werden zentral im Icon-Atom ausgewählt, mit 1,6 px Strichstärke und `currentColor`. Pfeile, Navigation, FAQ und Plugin-Symbole verwenden dieselbe Bibliothek. Die Icons sind dekorativ; sichtbare Texte tragen die Bedeutung. Das CSP-Headset ist eine eigenständige Bildmarke und bleibt unabhängig von der Icon-Library.
+
 ## Bilder und Anwendungen
 
 Produktbilder zeigen echte Portal-Demoansichten mit sichtbarer Kennzeichnung synthetischer Daten. Keine Stockfotos als Kundenbeleg. Flächen und Diagramme greifen das modulare Zeichen auf; technische Details gehören auf die Plugin-Seite und in Dokumentation.

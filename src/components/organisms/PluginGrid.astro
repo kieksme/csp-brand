@@ -1,4 +1,5 @@
 ---
+import Icon from "../atoms/Icon.astro";
 import SectionHeading from "../molecules/SectionHeading.astro";
 import PluginCard from "../molecules/PluginCard.astro";
 import Button from "../atoms/Button.astro";
@@ -37,7 +38,9 @@ const t = text(locale);
       ))}
     </div>
     <div class="integration-note">
-      <span aria-hidden="true">↔</span>
+      <span aria-hidden="true">
+        <Icon name="arrow-left-right" size={24} />
+      </span>
       <p>{t.plugins.transport}</p>
       <p>{t.plugins.providers}</p>
     </div>

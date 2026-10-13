@@ -1,35 +1,59 @@
 ---
-interface Props {
-  name?: string;
-}
-const { name = "module" } = Astro.props;
-const paths: Record<string, string> = {
-  contact:
-    "M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 1-1 2-2 2C10 21 3 14 3 5c0-1 1-2 2-2",
-  signl4: "M12 3v3M12 18v3M3 12h3M18 12h3M12 8v4l3 2M8 4a9 9 0 1 0 8 0",
-  kuma: "M3 12h4l3-7 4 14 3-7h4",
-  content: "M5 3h10l4 4v14H5ZM9 11h6M9 15h6M15 3v4h4",
-  chat: "M4 4h16v12H9l-5 4ZM8 8h8M8 12h5",
-  teams:
-    "M3 18v-3a4 4 0 0 1 8 0v3M15 18v-3a4 4 0 0 1 6 0v3M7 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6M18 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4",
-  slack: "M8 3v18M16 3v18M3 8h18M3 16h18",
-  telegram: "M3 10 21 3l-4 18-5-7-9-4ZM12 14l9-11",
-  module: "M3 3h7v7H3ZM14 3h7v7h-7ZM3 14h7v7H3ZM14 14h7v7h-7Z",
-  arrow: "M4 12h16M13 5l7 7-7 7",
+import {
+  Activity,
+  ArrowDownLeft,
+  ArrowLeftRight,
+  ArrowRight,
+  ArrowUpRight,
+  Blocks,
+  Check,
+  Clock3,
+  CodeXml,
+  CornerDownRight,
+  FileText,
+  Hash,
+  Infinity as InfinityIcon,
+  Menu,
+  MessagesSquare,
+  Phone,
+  Plus,
+  Send,
+  Users,
+} from "@lucide/astro";
+
+const icons = {
+  contact: Phone,
+  signl4: Clock3,
+  kuma: Activity,
+  content: FileText,
+  chat: MessagesSquare,
+  teams: Users,
+  slack: Hash,
+  telegram: Send,
+  module: Blocks,
+  arrow: ArrowRight,
+  "arrow-up-right": ArrowUpRight,
+  "arrow-down-left": ArrowDownLeft,
+  "arrow-left-right": ArrowLeftRight,
+  "corner-down-right": CornerDownRight,
+  check: Check,
+  menu: Menu,
+  plus: Plus,
+  infinity: InfinityIcon,
+  code: CodeXml,
 };
+interface Props {
+  name?: keyof typeof icons;
+  size?: number;
+}
+const { name = "module", size = 24 } = Astro.props;
+const Symbol = icons[name];
 ---
 
-<svg
+<Symbol
   class="icon"
-  viewBox="0 0 24 24"
-  width="24"
-  height="24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="1.6"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  size={size}
+  stroke-width={1.6}
   aria-hidden="true"
->
-  <path d={paths[name] ?? paths.module} />
-</svg>
+  focusable="false"
+/>

@@ -34,6 +34,8 @@ Deutsch unter `/`, Englisch unter `/en/`; dazu jeweils `/plugins/` und `/brand/`
 
 Atomic Design: Quarks → Atoms → Molecules → Organisms → Templates → Pages. Komponenten importieren keine höheren Ebenen. Templates komponieren Organisms, Pages befüllen Templates. Die Vorlage des Projekts verwendet lokale Fonts und SVGs, ohne Analytics oder externe Einbettungen.
 
+UI-Icons verwenden Lucide über `src/components/atoms/Icon.astro`. Die typisierte Zuordnung importiert nur benötigte Icons aus `@lucide/astro`; sie werden als dekorative SVGs im Build gerendert. Das eigene CSP-Logo bleibt ein separates Markenasset. Lizenzhinweise stehen in THIRD-PARTY-NOTICES.md.
+
 ## Veröffentlichung
 
 GitHub Actions prüft Formatierung, Typen, Katalog/Übersetzungen, Build und Desktop-/Mobil-Browserfälle. Nur ein erfolgreicher Main-Build deployt zu GitHub Pages. Unter Settings → Pages muss die Quelle GitHub Actions sein. `astro.config.mjs` enthält die Pages-Origin und `/csp-brand` als Basispfad; bei einer eigenen Domain beide Werte und die öffentliche Verifikation aktualisieren.

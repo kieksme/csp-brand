@@ -1,4 +1,5 @@
 ---
+import Icon from "../atoms/Icon.astro";
 interface Props {
   question: string;
   answer: string;
@@ -9,7 +10,9 @@ const { question, answer } = Astro.props;
 <details class="faq-item">
   <summary>
     {question}
-    <span aria-hidden="true">+</span>
+    <span aria-hidden="true">
+      <Icon name="plus" size={20} />
+    </span>
   </summary>
   <p>{answer}</p>
 </details>

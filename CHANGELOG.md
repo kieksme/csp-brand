@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Lucide als zentrale Icon-Library für Plugin-Symbole, Navigation, Pfeile und Statusmarker integriert; Lizenzhinweise ergänzt.
+
 ## 1.0.0 — 2026-10-13
 
 - Neue Corporate Identity für CSP by kieks.me, mit kantigem Headset-Logo, editierbaren Varianten und deutsch-englischen Social-Bildern.

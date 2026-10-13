@@ -1,14 +1,18 @@
 ---
+import Icon from "../atoms/Icon.astro";
 interface Props {
-  number: string;
+  number?: string;
+  icon?: "arrow-up-right" | "check" | "infinity";
   title: string;
   text: string;
 }
-const { number, title, text } = Astro.props;
+const { number, icon, title, text } = Astro.props;
 ---
 
 <article class="benefit-card">
-  <span class="card-number">{number}</span>
+  <span class="card-number">
+    {icon ? <Icon name={icon} size={20} /> : number}
+  </span>
   <h3>{title}</h3>
   <p>{text}</p>
 </article>

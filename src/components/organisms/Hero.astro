@@ -1,4 +1,5 @@
 ---
+import Icon from "../atoms/Icon.astro";
 import Button from "../atoms/Button.astro";
 import Badge from "../atoms/Badge.astro";
 import { asset, contactUrl, demoUrl } from "../../lib/paths";
@@ -33,7 +34,9 @@ const t = text(locale);
       <div class="hero-proof">
         {t.hero.proof.map((item) => (
           <span>
-            <span aria-hidden="true">✓</span>
+            <span aria-hidden="true">
+              <Icon name="check" size={12} />
+            </span>
             {item}
           </span>
         ))}
@@ -48,7 +51,7 @@ const t = text(locale);
       <div class="visual-heading">
         <Badge tone="accent">OPEN SOURCE. OPEN POSSIBILITIES.</Badge>
         <span class="visual-corner" aria-hidden="true">
-          ↙
+          <Icon name="arrow-down-left" size={32} />
         </span>
       </div>
       <figure class="product-window">
@@ -59,7 +62,9 @@ const t = text(locale);
             <i></i>
           </span>
           <span>{t.hero.label}</span>
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true">
+            <Icon name="arrow-up-right" size={18} />
+          </span>
         </div>
         <a href={demoUrl} aria-label={t.demo}>
           <img
@@ -76,11 +81,15 @@ const t = text(locale);
         </a>
         <figcaption>
           {t.hero.note}
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true">
+            <Icon name="arrow-up-right" size={18} />
+          </span>
         </figcaption>
       </figure>
       <div class="code-note">
-        <span aria-hidden="true">{}</span>
+        <span aria-hidden="true">
+          <Icon name="code" size={22} />
+        </span>
         <p>
           {locale === "de"
             ? "Offener Code. Eigene Infrastruktur."

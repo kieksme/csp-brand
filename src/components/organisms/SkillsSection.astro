@@ -1,4 +1,5 @@
 ---
+import Icon from "../atoms/Icon.astro";
 import SectionHeading from "../molecules/SectionHeading.astro";
 import SkillCard from "../molecules/SkillCard.astro";
 import Button from "../atoms/Button.astro";
@@ -41,7 +42,9 @@ const dirs = [
       ))}
       <div class="skills-panel-footer">
         <code>your-team → your-next-idea</code>
-        <span aria-hidden="true">↗</span>
+        <span aria-hidden="true">
+          <Icon name="arrow-up-right" size={18} />
+        </span>
       </div>
     </div>
   </div>
