@@ -10,9 +10,11 @@ CSP bündelt Kundenservice, Bereitschaft, Status und Wissen. Das Produkt ist Ope
 
 Zielgruppe: IT-Verantwortliche im Mittelstand. Ton: klar, direkt, fachlich korrekt, professionelle Sie-Ansprache. Zeigen, was CSP kann; keine behaupteten Einsparungen, Garantien, Partnerschaften oder Kundenreferenzen. Aussagen über Automatisierung von echten Handlungen nur mit belegter Funktion. Die Standardmodule sind öffentlich.
 
+KI-Entlastung: 80 % der Serviceanfragen vorfiltern ist ein Zielwert, noch keine eigene Messung. Mögliche Kostenersparnis wird im Kundenprojekt geprüft. Nutzer können die KI jederzeit überspringen: per Hotline oder über menschliche Chat-Übernahme mit eingerichtetem Support-Plugin. Keine sofortige Antwort oder durchgehende Besetzung versprechen; es gelten vereinbarte Servicezeiten.
+
 ## Bildmarke und Logo
 
-Drei verbundene Module stehen für Kontakt, Wissen und Systeme. Die CSP-Buchstaben sind als Vektorpfade gezeichnet; die kleine Anbieterzeile bleibt editierbarer Text. Der Schrift-Fallback für diese Zeile ist Arial/sans-serif. Ein neues Brand ist keine zugesicherte Markenregistrierung.
+Ein kantiges Headset mit geradem Mikrofonarm steht für Zuhören und den direkten Kontakt zum Serviceteam. Der Bügel hat abgeschrägte Ecken, die Ohrmuscheln sind rechteckig. Die geometrischen CSP-Buchstaben sind als Vektorpfade gezeichnet; die kleine Anbieterzeile bleibt editierbarer Text. Der Schrift-Fallback für diese Zeile ist Arial/sans-serif. Ein neues Brand ist keine zugesicherte Markenregistrierung.
 
 `assets/logo-primary.svg` für helle Flächen, `logo-light.svg` für dunkle Flächen; `logo-mono-dark.svg` und `logo-mono-light.svg` für einfarbige Anwendungen. `icon.svg` für kleine quadratische Anwendungen. Mindestbreite Wortmarke: 120 px; Icon: 24 px. Freiraum mindestens eine halbe Symbolhöhe. Nicht strecken, drehen, umfärben oder mit Effekten verändern. Der Web-Brand-Guide zeigt Anwendungen.
 

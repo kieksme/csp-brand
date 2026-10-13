@@ -1,0 +1,46 @@
+---
+import SectionHeading from "../molecules/SectionHeading.astro";
+import Badge from "../atoms/Badge.astro";
+import Icon from "../atoms/Icon.astro";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale).aiService;
+---
+
+<section id="ai-service" class="section ai-service">
+  <div class="container">
+    <SectionHeading
+      eyebrow={t.eyebrow}
+      title={t.title}
+      description={t.description}
+    />
+    <div class="ai-service-grid">
+      <div class="ai-target">
+        <p class="eyebrow">{t.targetLabel}</p>
+        <p class="target-number">{t.target}</p>
+        <h3>{t.targetText}</h3>
+        <p class="target-note">{t.targetNote}</p>
+      </div>
+      <div class="human-choice">
+        <span class="plugin-icon">
+          <Icon name="contact" />
+        </span>
+        <Badge tone="accent">{t.humanBadge}</Badge>
+        <h3>{t.humanTitle}</h3>
+        <p>{t.humanText}</p>
+        <p class="human-details">{t.humanDetails}</p>
+        <a
+          class="text-link"
+          href="https://github.com/kieksme/csp/blob/main/docs/chat.md#persönlichen-support-anfragen"
+        >
+          {t.sourceLink}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

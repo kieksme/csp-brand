@@ -3,16 +3,20 @@ import sharp from "sharp";
 const dirs = ["brand/assets", "public/brand", "public/images"];
 await Promise.all(dirs.map((dir) => mkdir(dir, { recursive: true })));
 const symbol = (colour, accent) =>
-  `<g fill="${colour}"><rect x="4" y="4" width="27" height="25" rx="7"/><rect x="4" y="34" width="27" height="25" rx="7"/><rect x="34" y="19" width="27" height="25" rx="7" fill="${accent}"/><path d="M22 16h20v8H22zM22 39h20v8H22z"/></g>`;
+  `<g><path d="M12 35V18L22 8H42L52 18V35" fill="none" stroke="${colour}" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter"/><path d="M6 28h13v22H6zM45 28h13v22H45z" fill="${colour}"/><path d="M51 45v11H36" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="square"/><path d="M27 52h14v8H27z" fill="${accent}"/></g>`;
 const letters = (colour) =>
-  `<g fill="none" stroke="${colour}" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"><path d="M105 17c-23-15-38 24-16 28 7 2 12-1 16-5"/><path d="M143 17c-8-7-26-6-26 3 0 12 28 5 28 17 0 10-19 15-29 6"/><path d="M161 46V13h16c19 0 19 22 0 22h-16"/></g>`;
+  `<g fill="${colour}"><path d="M106 12H87L77 22V40L87 50H106V43H91L84 36V26L91 19H106Z"/><path d="M143 12H122L116 18V29L122 35H136V43H116V50H137L143 44V32L137 26H123V19H143Z"/><path fill-rule="evenodd" d="M155 50V12H183V34H162V50ZM162 19V27H176V19Z"/></g>`;
 for (const [name, colour, accent] of [
   ["primary", "#006b64", "#102a2a"],
   ["light", "#f7faf9", "#d5f36b"],
   ["mono-dark", "#102a2a", "#102a2a"],
   ["mono-light", "#ffffff", "#ffffff"],
 ]) {
-  const sub = name.includes("light") ? "#f7faf9" : "#526763";
+  const sub = name.startsWith("mono")
+    ? colour
+    : name.includes("light")
+      ? "#f7faf9"
+      : "#526763";
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" role="img" aria-labelledby="title"><title id="title">CSP by kieks.me</title>${symbol(colour, accent)}${letters(colour)}<text x="80" y="62" font-family="Arial,sans-serif" font-size="9" letter-spacing="1.3" fill="${sub}">by kieks.me</text></svg>`;
   await writeFile(`brand/assets/logo-${name}.svg`, svg);
   await writeFile(`public/brand/logo-${name}.svg`, svg);
@@ -25,7 +29,7 @@ for (const size of [32, 192, 512])
     .resize(size, size)
     .png()
     .toFile(`public/brand/${size === 32 ? "favicon-32" : `icon-${size}`}.png`);
-const apple = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180"><rect width="180" height="180" rx="32" fill="#f7faf9"/><g transform="translate(39,39) scale(1.6)">${symbol("#006b64", "#102a2a")}</g></svg>`;
+const apple = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180"><rect width="180" height="180" fill="#f7faf9"/><g transform="translate(39,39) scale(1.6)">${symbol("#006b64", "#102a2a")}</g></svg>`;
 await sharp(Buffer.from(apple))
   .png()
   .toFile("public/brand/apple-touch-icon.png");

@@ -16,11 +16,12 @@ export const copy = {
       first: "Ihr Serviceportal.",
       second: "Ihr Code.",
       third: "Ihre Freiheit.",
-      text: "Support, Status und Wissen an einem Ort. Wir integrieren das Open-Source-Portal in Ihre Systeme. Sie behalten die Kontrolle.",
+      text: "Support, Status und Wissen an einem Ort. KI kann Routinearbeit reduzieren und Kosten sparen. Ihre Kunden wählen jederzeit den direkten Weg zum Serviceteam – auch ohne KI.",
       proof: [
         "Open Source · MIT",
         "Einrichtung statt Lizenzverkauf",
         "Kein verpflichtendes Abo",
+        "Direkter Kontakt auch ohne KI",
       ],
       label: "Synthetische Produktdemo · Acme",
       note: "Ein Portal, das zu Ihrem Unternehmen passt.",
@@ -157,14 +158,19 @@ export const copy = {
             "CSP ist der zentrale Einstieg zum Support. Das Content-Plugin verlinkt Ihr vorhandenes Ticketsystem und bietet Vorlagen. Der KI-Chat legt keine Tickets an und verändert keine Alerts.",
         },
         {
-          question: "Wie werden Menschen in den Chat eingebunden?",
+          question: "Können unsere Kunden die KI jederzeit überspringen?",
           answer:
-            "Die optionalen Teams-, Slack- oder Telegram-Plugins unterstützen ausdrückliche Übernahme, Bot-Pause, Antworten, Freigabe und Abschluss. Pro Instanz wird ein Transport ausgewählt. Die tatsächliche Anbindung wird im Kundenprojekt live geprüft.",
+            "Ja. Die Hotline bietet einen direkten Kontakt ohne KI. Mit einem eingerichteten Teams-, Slack- oder Telegram-Support-Plugin können Kunden im Chat schon vor der ersten KI-Nachricht eine echte Person anfordern. Der Bot pausiert, das Serviceteam kann übernehmen. Besetzung und Antwortzeiten richten sich nach Ihren vereinbarten Servicezeiten.",
         },
         {
           question: "Sind unsere Informationen automatisch privat?",
           answer:
             "Nein. Die Standardmodule sind öffentlich; veröffentlichte Inhalte müssen dafür geeignet sein. Geschützte Supportgespräche und die jeweilige Anmeldung werden separat eingerichtet. Datenfreigaben, KI-Anbieter und Betrieb klären wir im Projekt.",
+        },
+        {
+          question: "Sind 80 Prozent KI-Vorfilterung bereits gemessen?",
+          answer:
+            "Die 80 Prozent sind unser Zielwert, noch keine eigene Messung. Vorfilterung bedeutet, wiederkehrende Fragen mit KI zu klären und Anliegen vorzubereiten. Die tatsächliche Quote und mögliche Kostenersparnis werden anhand Ihrer Anfragen und Prozesse im Projekt geprüft.",
         },
       ],
     },
@@ -188,7 +194,7 @@ export const copy = {
       intro:
         "Die visuelle Identität von CSP by kieks.me: modular, präzise und souverän. Die Quellen und Nutzungsregeln liegen im Repository.",
       palette: "Eine Palette mit Haltung.",
-      logos: "Drei Module. Ein gemeinsames Zeichen.",
+      logos: "Zuhören. Verbinden. Weiterhelfen.",
       typography: "Klarheit in jeder Zeile.",
       download: "Brand-Dateien ansehen",
       rights:
@@ -200,6 +206,24 @@ export const copy = {
       title: "Diese Seite ist nicht hier.",
       text: "Vielleicht ist der Link veraltet. Über die Startseite finden Sie Portal, Plugins und Kontakt.",
       link: "Zur Startseite",
+    },
+    aiService: {
+      eyebrow: "KI-ENTLASTUNG / FREIE WAHL",
+      title: "Weniger Routine.\nMehr Zeit für Service.",
+      description:
+        "KI kann wiederkehrende Fragen klären und Anliegen für Ihr Team vorbereiten. Das kann Bearbeitungsaufwand und Servicekosten reduzieren. Wie viel, hängt von Ihren Anfragen und der Qualität Ihrer Wissensquellen ab.",
+      targetLabel: "UNSER ZIELWERT",
+      target: "80 %",
+      targetText: "der Serviceanfragen mit KI vorfiltern",
+      targetNote:
+        "80 % ist ein Zielwert, noch keine eigene Messung. Die tatsächliche Vorfilterungsquote und der Kosteneffekt werden im Kundenprojekt gemessen.",
+      humanTitle: "Direkt zum Menschen. Jederzeit Ihre Wahl.",
+      humanText:
+        "Ihre Kunden können auf den KI-Assistenten verzichten: die Hotline direkt anwählen oder im Chat einen Service-Mitarbeiter anfordern – auch vor der ersten KI-Nachricht. Eine KI-Antwort muss dafür nicht abgewartet werden.",
+      humanDetails:
+        "Bei der menschlichen Supportanfrage pausiert der Bot. Das Serviceteam übernimmt das Gespräch. Die Chat-Weiterleitung benötigt ein eingerichtetes Teams-, Slack- oder Telegram-Plugin; Besetzung und Antwortzeiten richten sich nach den vereinbarten Servicezeiten.",
+      humanBadge: "Keine verpflichtende KI-Interaktion",
+      sourceLink: "So funktioniert die menschliche Übernahme",
     },
   },
   en: {
@@ -218,11 +242,12 @@ export const copy = {
       first: "Your service portal.",
       second: "Your code.",
       third: "Your freedom.",
-      text: "Support, status and knowledge in one place. We integrate the open-source portal with your systems. You stay in control.",
+      text: "Support, status and knowledge in one place. AI can reduce routine work and costs. Your customers can choose a direct route to your service team at any time, including without AI.",
       proof: [
         "Open source · MIT",
         "Setup instead of licence sales",
         "No mandatory subscription",
+        "Direct contact without AI",
       ],
       label: "Synthetic product demo · Acme",
       note: "A portal that fits your business.",
@@ -362,14 +387,19 @@ export const copy = {
             "CSP is the central starting point for support. The content plugin links to your existing ticket system and provides templates. AI chat does not create tickets or change alerts.",
         },
         {
-          question: "How does human chat support work?",
+          question: "Can our customers skip AI at any time?",
           answer:
-            "Optional Teams, Slack or Telegram plugins support explicit takeover, bot pause, replies, release and closure. Each instance uses one transport. The actual connection is verified live in your project.",
+            "Yes. The hotline provides direct contact without AI. With a configured Teams, Slack or Telegram support plugin, customers can request a real person in chat before the first AI message. The bot pauses and the service team can take over. Staffing and response times follow your agreed service hours.",
         },
         {
           question: "Is our information automatically private?",
           answer:
             "No. Standard modules are public, so published content must be suitable for that. Protected support conversations and their sign-in are set up separately. We agree data access, AI providers and operation as part of your project.",
+        },
+        {
+          question: "Is 80% AI pre-screening already measured?",
+          answer:
+            "80% is our target, not our own measured result. Pre-screening means using AI to clarify recurring questions and prepare requests. The actual rate and potential cost savings are assessed against your requests and processes in the project.",
         },
       ],
     },
@@ -393,7 +423,7 @@ export const copy = {
       intro:
         "The visual identity of CSP by kieks.me: modular, precise and confident. Sources and terms of use live in the repository.",
       palette: "A palette with purpose.",
-      logos: "Three modules. One shared mark.",
+      logos: "Listen. Connect. Help.",
       typography: "Clarity in every line.",
       download: "Explore the brand files",
       rights:
@@ -405,6 +435,24 @@ export const copy = {
       title: "This page isn’t here.",
       text: "The link may be out of date. Find the portal, plugins and contact on the homepage.",
       link: "Back to the homepage",
+    },
+    aiService: {
+      eyebrow: "AI ASSISTANCE / YOUR CHOICE",
+      title: "Less routine work.\nMore time for service.",
+      description:
+        "AI can answer recurring questions and prepare requests for your team. This can reduce handling effort and service costs. The impact depends on your requests and the quality of your knowledge sources.",
+      targetLabel: "OUR TARGET",
+      target: "80%",
+      targetText: "of service requests pre-screened with AI",
+      targetNote:
+        "80% is a target, not our own measured result. The actual pre-screening rate and cost impact are measured in the customer project.",
+      humanTitle: "Straight to a person. Always your choice.",
+      humanText:
+        "Your customers can skip the AI assistant: call the hotline directly or request a service team member in chat, even before the first AI message. There is no need to wait for an AI answer.",
+      humanDetails:
+        "A human support request pauses the bot. The service team takes over the conversation. Chat handover requires a configured Teams, Slack or Telegram plugin; staffing and response times follow the agreed service hours.",
+      humanBadge: "No mandatory AI interaction",
+      sourceLink: "How human takeover works",
     },
   },
 };
