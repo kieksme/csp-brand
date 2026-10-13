@@ -1,0 +1,16 @@
+---
+import SiteLayout from "../../components/templates/SiteLayout.astro";
+import PluginsTemplate from "../../components/templates/PluginsTemplate.astro";
+import { text } from "../../data/copy";
+const locale = "de" as const;
+const t = text(locale);
+---
+
+<SiteLayout
+  locale={locale}
+  page="plugins"
+  title={t.plugins.heading + " · CSP by kieks.me"}
+  description={t.plugins.intro}
+>
+  <PluginsTemplate locale={locale} />
+</SiteLayout>

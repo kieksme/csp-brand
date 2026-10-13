@@ -1,0 +1,98 @@
+---
+import "@fontsource-variable/inter";
+import "../../quarks/tokens.css";
+import "../../styles/global.css";
+import Header from "../organisms/Header.astro";
+import Footer from "../organisms/Footer.astro";
+import { asset, route } from "../../lib/paths";
+import type { Locale, PageKind } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+  page?: PageKind;
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const {
+  locale,
+  page = "home",
+  title = text(locale).title,
+  description = text(locale).description,
+  noindex = false,
+} = Astro.props;
+const absolute = (url: string) => new URL(url, Astro.site!).href;
+const image = absolute(asset(`brand/social-${locale}.png`));
+---
+
+<!doctype html>
+<html lang={locale === "de" ? "de" : "en-GB"}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#006b64" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={absolute(route(locale, page))} />
+    <link rel="alternate" hreflang="de-DE" href={absolute(route("de", page))} />
+    <link rel="alternate" hreflang="en-GB" href={absolute(route("en", page))} />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={absolute(route("de", page))}
+    />
+    <link rel="icon" type="image/svg+xml" href={asset("brand/icon.svg")} />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href={asset("brand/favicon-32.png")}
+    />
+    <link rel="apple-touch-icon" href={asset("brand/apple-touch-icon.png")} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={absolute(route(locale, page))} />
+    <meta property="og:site_name" content="CSP by kieks.me" />
+    <meta property="og:locale" content={locale === "de" ? "de_DE" : "en_GB"} />
+    <meta
+      property="og:locale:alternate"
+      content={locale === "de" ? "en_GB" : "de_DE"}
+    />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content={
+        locale === "de"
+          ? "CSP: Ihr Serviceportal. Ihr Code. Ihre Freiheit."
+          : "CSP: Your service portal. Your code. Your freedom."
+      }
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta
+      name="twitter:image:alt"
+      content={
+        locale === "de"
+          ? "CSP: Ihr Serviceportal. Ihr Code. Ihre Freiheit."
+          : "CSP: Your service portal. Your code. Your freedom."
+      }
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      {text(locale).skip}
+    </a>
+    <Header locale={locale} page={page} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

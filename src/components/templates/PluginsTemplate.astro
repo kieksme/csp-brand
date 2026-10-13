@@ -1,0 +1,16 @@
+---
+import PageIntro from "../organisms/PageIntro.astro";
+import PluginGrid from "../organisms/PluginGrid.astro";
+import ContactSection from "../organisms/ContactSection.astro";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale).plugins;
+---
+
+<PageIntro eyebrow={t.eyebrow} title={t.heading} description={t.intro} />
+<PluginGrid locale={locale} detailed />
+<ContactSection locale={locale} />

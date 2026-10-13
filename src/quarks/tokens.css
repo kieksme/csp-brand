@@ -1,0 +1,28 @@
+/* Shared design primitives. No component dependencies. */
+:root {
+  --paper: #f7faf9;
+  --white: #fff;
+  --ink: #102a2a;
+  --muted: #526763;
+  --petrol: #006b64;
+  --lime: #d5f36b;
+  --line: #dbe5df;
+  --soft: #eaf0eb;
+  --font: "Inter Variable", sans-serif;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 5rem;
+  --text-sm: 0.8125rem;
+  --text-base: 1rem;
+  --text-lg: 1.1875rem;
+  --radius: 8px;
+  --shadow: 0 20px 60px #102a2a0d;
+  --duration: 180ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --content: 1240px;
+}

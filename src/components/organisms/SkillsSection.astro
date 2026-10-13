@@ -1,0 +1,48 @@
+---
+import SectionHeading from "../molecules/SectionHeading.astro";
+import SkillCard from "../molecules/SkillCard.astro";
+import Button from "../atoms/Button.astro";
+import { brandRepo } from "../../lib/paths";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale).skills;
+const dirs = [
+  "csp-customer-branding",
+  "csp-content-maintenance",
+  "csp-plugin-development",
+];
+---
+
+<section class="section skills-section">
+  <div class="container skills-grid">
+    <div>
+      <SectionHeading
+        eyebrow={t.eyebrow}
+        title={t.title}
+        description={t.text}
+      />
+      <Button href={`${brandRepo}/tree/main/skills`} variant="secondary">
+        {t.link}
+      </Button>
+      <p class="small-note">{t.note}</p>
+    </div>
+    <div class="skills-panel">
+      <div class="skills-panel-heading">
+        <span class="live-dot" aria-hidden="true"></span>
+        {t.file}
+        <span>3 SKILLS</span>
+      </div>
+      {t.items.map((item, i) => (
+        <SkillCard {...item} file={dirs[i]} />
+      ))}
+      <div class="skills-panel-footer">
+        <code>your-team → your-next-idea</code>
+        <span aria-hidden="true">↗</span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+import SectionHeading from "../molecules/SectionHeading.astro";
+import BenefitCard from "../molecules/BenefitCard.astro";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale);
+---
+
+<div class="principle-strip">
+  <div class="container">
+    {t.strip.map((item, i) => (
+      <p>
+        <span aria-hidden="true">{["↳", "↔", "↗"][i]}</span>
+        {item}
+      </p>
+    ))}
+  </div>
+</div>
+<section id="portal" class="section">
+  <div class="container">
+    <SectionHeading {...t.product} />
+    <div class="benefit-grid">
+      {t.product.benefits.map((item, i) => (
+        <BenefitCard {...item} number={String(i + 1).padStart(2, "0")} />
+      ))}
+    </div>
+  </div>
+</section>

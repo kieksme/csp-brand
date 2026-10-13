@@ -1,0 +1,24 @@
+---
+import Hero from "../organisms/Hero.astro";
+import ProductSection from "../organisms/ProductSection.astro";
+import PluginGrid from "../organisms/PluginGrid.astro";
+import OwnershipSection from "../organisms/OwnershipSection.astro";
+import ProcessSection from "../organisms/ProcessSection.astro";
+import SkillsSection from "../organisms/SkillsSection.astro";
+import FaqSection from "../organisms/FaqSection.astro";
+import ContactSection from "../organisms/ContactSection.astro";
+import type { Locale } from "../../lib/paths";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<Hero locale={locale} />
+<ProductSection locale={locale} />
+<PluginGrid locale={locale} />
+<OwnershipSection locale={locale} />
+<ProcessSection locale={locale} />
+<SkillsSection locale={locale} />
+<FaqSection locale={locale} />
+<ContactSection locale={locale} />

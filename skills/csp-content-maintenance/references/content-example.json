@@ -1,0 +1,25 @@
+{
+  "processes": [
+    {
+      "id": "incident",
+      "title": "Report an incident",
+      "text": "For urgent incidents, call the configured **support hotline**."
+    }
+  ],
+  "tickets": [
+    {
+      "title": "Support request",
+      "description": "For non-urgent issues.",
+      "href": "https://support.example.invalid/tickets/new",
+      "template": "Affected service:\nImpact:\nFirst observed:\n"
+    }
+  ],
+  "faq": [
+    {
+      "id": "contact",
+      "category": "Support",
+      "question": "How can I contact support?",
+      "answer": "Use the hotline shown in this portal for urgent incidents."
+    }
+  ]
+}

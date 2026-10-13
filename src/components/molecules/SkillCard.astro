@@ -1,0 +1,21 @@
+---
+import Icon from "../atoms/Icon.astro";
+interface Props {
+  name: string;
+  text: string;
+  file: string;
+}
+const { name, text, file } = Astro.props;
+---
+
+<article class="skill-card">
+  <Icon />
+  <div>
+    <h3>{name}</h3>
+    <p>{text}</p>
+    <code>{file}/SKILL.md</code>
+  </div>
+  <span class="skill-tick" aria-hidden="true">
+    ✓
+  </span>
+</article>

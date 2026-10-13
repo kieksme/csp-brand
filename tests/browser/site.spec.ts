@@ -1,0 +1,159 @@
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+const routes = ["", "en/", "plugins/", "en/plugins/", "brand/", "en/brand/"];
+
+for (const path of routes) {
+  test(`page ${path || "home"}: accessible, complete and self-contained`, async ({
+    page,
+  }) => {
+    const failed: string[] = [];
+    const remote: string[] = [];
+    page.on("response", (r) => {
+      if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`);
+    });
+    page.on("pageerror", (e) => failed.push(e.message));
+    page.on("request", (r) => {
+      if (
+        !r.url().startsWith("http://127.0.0.1:4322") &&
+        !r.url().startsWith("data:")
+      )
+        remote.push(r.url());
+    });
+    await page.goto(path || "./");
+    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(() =>
+      Promise.all(
+        document.getAnimations().map((animation) => animation.finished),
+      ),
+    );
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator("html")).toHaveAttribute(
+      "lang",
+      path.startsWith("en/") ? "en-GB" : "de",
+    );
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    expect(failed).toEqual([]);
+    expect(remote).toEqual([]);
+    expect(
+      (
+        await new AxeBuilder({ page })
+          .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+          .analyze()
+      ).violations,
+    ).toEqual([]);
+    const canonical = page.locator('link[rel="canonical"]');
+    await expect(canonical).toHaveAttribute(
+      "href",
+      `https://kieksme.github.io/csp-brand/${path}`,
+    );
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      new RegExp(`social-${path.startsWith("en/") ? "en" : "de"}\\.png$`),
+    );
+    await expect(page.locator('link[hreflang="de-DE"]')).toHaveCount(1);
+    await expect(page.locator('link[hreflang="en-GB"]')).toHaveCount(1);
+    if (path.includes("plugins")) {
+      await expect(page.locator(".plugin-card--detail")).toHaveCount(8);
+      await expect(
+        page.locator(".plugin-card--detail .badge").filter({
+          hasText: path.startsWith("en/")
+            ? "still to be verified"
+            : "noch zu verifizieren",
+        }),
+      ).toHaveCount(3);
+    }
+  });
+}
+
+test("language switches preserve page and plugin navigation uses the correct base", async ({
+  page,
+}) => {
+  await page.goto("plugins/");
+  await page.locator(".language-link").click();
+  await expect(page).toHaveURL(/\/csp-brand\/en\/plugins\/$/);
+  await expect(page.locator("h1")).toHaveText("Eight plugins. Your setup.");
+  await page.locator(".language-link").click();
+  await expect(page).toHaveURL(/\/csp-brand\/plugins\/$/);
+  await page.goto("./");
+  await page
+    .locator(".plugin-card h3 a")
+    .filter({ hasText: "Microsoft Teams" })
+    .click();
+  await expect(page).toHaveURL(/\/plugins\/#teams$/);
+  await expect(page.locator("#teams")).toBeVisible();
+});
+
+test("FAQ, contact, mobile menu and keyboard focus work", async ({
+  page,
+}, testInfo) => {
+  await page.goto("./");
+  await page.keyboard.press("Tab");
+  await expect(page.locator(".skip-link")).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#main$/);
+  const question = page.locator(".faq-item").first();
+  await question.locator("summary").click();
+  await expect(question).toHaveAttribute("open", "");
+  await expect(question.locator("p")).toBeVisible();
+  await expect(page.locator("#contact .button")).toHaveAttribute(
+    "href",
+    /^mailto:kontakt@kieks\.me\?subject=/,
+  );
+  if (testInfo.project.name === "mobile") {
+    const menu = page.locator(".mobile-nav");
+    await menu.locator("summary").click();
+    await expect(menu).toHaveAttribute("open", "");
+    await page.keyboard.press("Escape");
+    await expect(menu).not.toHaveAttribute("open");
+    await menu.locator("summary").click();
+    await menu.locator("nav a").filter({ hasText: "Plugins" }).click();
+    await expect(page).toHaveURL(/\/plugins\/$/);
+  }
+});
+
+test("reduced motion and internal link destinations", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("./");
+  expect(
+    await page
+      .locator(".hero-copy")
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("none");
+  for (const path of routes) {
+    await page.goto(path || "./");
+    const links = await page
+      .locator("a")
+      .evaluateAll((els) =>
+        els
+          .map((el) => (el as HTMLAnchorElement).href)
+          .filter((href) => href.startsWith(location.origin)),
+      );
+    for (const href of new Set(links)) {
+      const response = await page.request.get(href.split("#")[0]);
+      expect(response.status(), href).toBe(200);
+      if (href.includes("#")) {
+        const url = new URL(href);
+        if (url.pathname === new URL(page.url()).pathname)
+          expect(
+            await page.locator(`[id="${url.hash.slice(1)}"]`).count(),
+            href,
+          ).toBe(1);
+      }
+    }
+  }
+});
+
+test("404 provides a working route back", async ({ page }) => {
+  const response = await page.goto("missing-page/");
+  expect(response?.status()).toBe(404);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex",
+  );
+  await page.locator(".notfound .button").click();
+  await expect(page).toHaveURL(/\/csp-brand\/$/);
+});

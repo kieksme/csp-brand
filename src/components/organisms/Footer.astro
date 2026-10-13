@@ -1,0 +1,37 @@
+---
+import Logo from "../atoms/Logo.astro";
+import { sourceUrl, brandRepo, route } from "../../lib/paths";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale);
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a href={route(locale)}>
+        <Logo />
+      </a>
+      <p>{t.footer.tagline}</p>
+      <a href="https://kieks.me">
+        kieks.me<span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        © {new Date().getFullYear()} kieks.me · {t.footer.copyright}
+      </p>
+      <nav aria-label={locale === "de" ? "Weitere Links" : "More links"}>
+        <a href={sourceUrl}>{t.source}</a>
+        <a href={brandRepo}>{t.footer.repo}</a>
+        <a href={route(locale, "brand")}>{t.footer.brand}</a>
+        <a href="https://kieks.me/impressum">{t.footer.legal}</a>
+        <a href="https://kieks.me/datenschutz">{t.footer.privacy}</a>
+      </nav>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,16 @@
+---
+import SiteLayout from "../../components/templates/SiteLayout.astro";
+import BrandTemplate from "../../components/templates/BrandTemplate.astro";
+import { text } from "../../data/copy";
+const locale = "de" as const;
+const t = text(locale);
+---
+
+<SiteLayout
+  locale={locale}
+  page="brand"
+  title={t.brand.title + " · CSP by kieks.me"}
+  description={t.brand.intro}
+>
+  <BrandTemplate locale={locale} />
+</SiteLayout>

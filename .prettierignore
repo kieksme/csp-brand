@@ -1,0 +1,10 @@
+pnpm-lock.yaml
+dist
+node_modules
+.astro
+playwright-report
+test-results
+brand/assets/*.svg
+public/brand/*.svg
+skills/csp-plugin-development/assets/example-plugin/dist
+skills/csp-plugin-development/assets/example-plugin/node_modules

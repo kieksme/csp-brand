@@ -1,0 +1,19 @@
+---
+import Button from "../atoms/Button.astro";
+import { route } from "../../lib/paths";
+import { text } from "../../data/copy";
+const t = text("de").notfound;
+---
+
+<section class="notfound">
+  <div class="container">
+    <p class="eyebrow">404</p>
+    <h1>{t.title}</h1>
+    <p>{t.text}</p>
+    <Button href={route("de")}>{t.link}</Button>
+    <p lang="en">
+      This page does not exist.{" "}
+      <a href={route("en")}>Visit the English homepage.</a>
+    </p>
+  </div>
+</section>

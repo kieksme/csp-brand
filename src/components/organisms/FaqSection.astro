@@ -1,0 +1,22 @@
+---
+import SectionHeading from "../molecules/SectionHeading.astro";
+import FaqItem from "../molecules/FaqItem.astro";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale).faq;
+---
+
+<section class="section">
+  <div class="container faq-grid">
+    <SectionHeading eyebrow={t.eyebrow} title={t.title} />
+    <div>
+      {t.items.map((item) => (
+        <FaqItem {...item} />
+      ))}
+    </div>
+  </div>
+</section>

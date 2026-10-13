@@ -1,0 +1,11 @@
+---
+interface Props {
+  href: string;
+  active?: boolean;
+}
+const { href, active = false } = Astro.props;
+---
+
+<a href={href} aria-current={active ? "page" : undefined}>
+  <slot />
+</a>

@@ -1,0 +1,22 @@
+---
+import SectionHeading from "../molecules/SectionHeading.astro";
+import StepCard from "../molecules/StepCard.astro";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale).process;
+---
+
+<section id="project" class="section">
+  <div class="container">
+    <SectionHeading {...t} />
+    <div class="steps-grid">
+      {t.steps.map((item, i) => (
+        <StepCard {...item} number={String(i + 1).padStart(2, "0")} />
+      ))}
+    </div>
+  </div>
+</section>

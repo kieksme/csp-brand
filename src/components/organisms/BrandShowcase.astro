@@ -1,0 +1,85 @@
+---
+import SectionHeading from "../molecules/SectionHeading.astro";
+import Button from "../atoms/Button.astro";
+import { asset, brandRepo } from "../../lib/paths";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale).brand;
+const palette = [
+  ["Paper", "#F7FAF9"],
+  ["Ink", "#102A2A"],
+  ["Petrol", "#006B64"],
+  ["Lime", "#D5F36B"],
+];
+---
+
+<section class="section">
+  <div class="container">
+    <SectionHeading eyebrow="01 / COLOUR" title={t.palette} />
+    <div class="swatch-grid">
+      {palette.map(([name, hex]) => (
+        <div class="swatch" style={`--swatch:${hex}`}>
+          <div></div>
+          <p>
+            {name}
+            <code>{hex}</code>
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<section class="section brand-logos">
+  <div class="container">
+    <SectionHeading eyebrow="02 / LOGO" title={t.logos} />
+    <div class="logo-examples">
+      <div>
+        <img
+          src={asset("brand/logo-primary.svg")}
+          alt="CSP by kieks.me"
+          width="328"
+          height="96"
+        />
+      </div>
+      <div class="inverse">
+        <img
+          src={asset("brand/logo-light.svg")}
+          alt="CSP by kieks.me"
+          width="328"
+          height="96"
+        />
+      </div>
+      <div class="icon-example">
+        <img
+          src={asset("brand/icon.svg")}
+          alt={locale === "de" ? "CSP-Bildmarke" : "CSP symbol"}
+          width="80"
+          height="80"
+        />
+      </div>
+    </div>
+    <p class="section-description">{t.rules}</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <SectionHeading eyebrow="03 / TYPE" title={t.typography} />
+    <div class="type-example">
+      <p>Inter Variable</p>
+      <span>
+        Aa Bb Cc
+        <br />
+        0123456789
+      </span>
+      <p>400 / 500 / 600 / 700 / 800</p>
+    </div>
+    <p class="section-description">{t.rights}</p>
+    <Button href={`${brandRepo}/tree/main/brand`} variant="secondary">
+      {t.download}
+    </Button>
+  </div>
+</section>

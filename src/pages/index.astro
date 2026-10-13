@@ -1,0 +1,16 @@
+---
+import SiteLayout from "../components/templates/SiteLayout.astro";
+import MarketingTemplate from "../components/templates/MarketingTemplate.astro";
+import { text } from "../data/copy";
+const locale = "de" as const;
+const t = text(locale);
+---
+
+<SiteLayout
+  locale={locale}
+  page="home"
+  title={t.title}
+  description={t.description}
+>
+  <MarketingTemplate locale={locale} />
+</SiteLayout>

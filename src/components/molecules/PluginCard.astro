@@ -1,0 +1,76 @@
+---
+import Icon from "../atoms/Icon.astro";
+import Badge from "../atoms/Badge.astro";
+import type { Plugin } from "../../data/plugins";
+import type { Locale } from "../../lib/paths";
+import { route } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  plugin: Plugin;
+  locale: Locale;
+  detailed?: boolean;
+}
+const { plugin, locale, detailed = false } = Astro.props;
+const t = text(locale).plugins;
+const status =
+  plugin.verification === "live-pending"
+    ? t.pending
+    : plugin.verification === "provider"
+      ? t.provider
+      : t.public;
+---
+
+<article
+  class:list={["plugin-card", { "plugin-card--detail": detailed }]}
+  id={detailed ? plugin.id : undefined}
+>
+  <div class="plugin-card-top">
+    <span class="plugin-icon">
+      <Icon name={plugin.id} />
+    </span>
+    <span class="plugin-index">
+      {String(
+        [
+          "contact",
+          "signl4",
+          "kuma",
+          "content",
+          "chat",
+          "teams",
+          "slack",
+          "telegram",
+        ].indexOf(plugin.id) + 1,
+      ).padStart(2, "0")}
+    </span>
+  </div>
+  <h3>
+    {detailed ? (
+      plugin.name[locale]
+    ) : (
+      <a href={`${route(locale, "plugins")}#${plugin.id}`}>
+        {plugin.name[locale]}
+        <span aria-hidden="true">↗</span>
+      </a>
+    )}
+  </h3>
+  <p>{plugin.description[locale]}</p>
+  {detailed && (
+    <>
+      <p class="plugin-tagline">{plugin.tagline[locale]}</p>
+      <ul>
+        {plugin.features[locale].map((feature) => (
+          <li>{feature}</li>
+        ))}
+      </ul>
+      <div class="requirements">
+        <h4>{t.requirements}</h4>
+        <p>{plugin.requirements[locale]}</p>
+      </div>
+      <Badge>{status}</Badge>
+      <a class="text-link" href={plugin.docs}>
+        {t.docs}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </>
+  )}
+</article>

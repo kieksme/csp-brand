@@ -1,0 +1,79 @@
+---
+import Logo from "../atoms/Logo.astro";
+import Button from "../atoms/Button.astro";
+import NavLink from "../molecules/NavLink.astro";
+import { route, contactUrl } from "../../lib/paths";
+import type { Locale, PageKind } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+  page?: PageKind;
+}
+const { locale, page = "home" } = Astro.props;
+const t = text(locale);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={route(locale)} class="home-link">
+      <Logo />
+    </a>
+    <nav
+      aria-label={locale === "de" ? "Hauptnavigation" : "Main navigation"}
+      class="desktop-nav"
+    >
+      <NavLink href={`${route(locale)}#portal`}>{t.nav[0]}</NavLink>
+      <NavLink href={route(locale, "plugins")} active={page === "plugins"}>
+        {t.nav[1]}
+      </NavLink>
+      <NavLink href={`${route(locale)}#project`}>{t.nav[2]}</NavLink>
+    </nav>
+    <div class="header-actions">
+      <a
+        class="language-link"
+        href={route(locale === "de" ? "en" : "de", page)}
+        lang={locale === "de" ? "en" : "de"}
+        hreflang={locale === "de" ? "en" : "de"}
+        aria-label={
+          locale === "de" ? "Switch to English" : "Auf Deutsch wechseln"
+        }
+      >
+        {locale === "de" ? "EN" : "DE"}
+      </a>
+      <span class="header-contact">
+        <Button href={contactUrl(locale)}>{t.contact}</Button>
+      </span>
+    </div>
+    <details class="mobile-nav">
+      <summary>
+        {t.menu}
+        <span aria-hidden="true">☰</span>
+      </summary>
+      <nav
+        aria-label={locale === "de" ? "Mobile Navigation" : "Mobile navigation"}
+      >
+        <NavLink href={`${route(locale)}#portal`}>{t.nav[0]}</NavLink>
+        <NavLink href={route(locale, "plugins")}>{t.nav[1]}</NavLink>
+        <NavLink href={`${route(locale)}#project`}>{t.nav[2]}</NavLink>
+        <NavLink href={contactUrl(locale)}>{t.contact}</NavLink>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+  document
+    .querySelectorAll<HTMLDetailsElement>(".mobile-nav")
+    .forEach((menu) => {
+      menu.querySelectorAll("a").forEach((link) =>
+        link.addEventListener("click", () => {
+          menu.open = false;
+        }),
+      );
+      menu.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          menu.open = false;
+          menu.querySelector("summary")?.focus();
+        }
+      });
+    });
+</script>

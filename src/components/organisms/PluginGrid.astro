@@ -1,0 +1,46 @@
+---
+import SectionHeading from "../molecules/SectionHeading.astro";
+import PluginCard from "../molecules/PluginCard.astro";
+import Button from "../atoms/Button.astro";
+import { plugins } from "../../data/plugins";
+import { route } from "../../lib/paths";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+  detailed?: boolean;
+}
+const { locale, detailed = false } = Astro.props;
+const t = text(locale);
+---
+
+<section
+  id="plugins"
+  class:list={[
+    "section",
+    "plugin-section",
+    { "plugin-section--detail": detailed },
+  ]}
+>
+  <div class="container">
+    {!detailed && (
+      <div class="section-heading-row">
+        <SectionHeading {...t.plugins} />
+        <Button href={route(locale, "plugins")} variant="secondary">
+          {t.allPlugins}
+        </Button>
+      </div>
+    )}
+    <div class:list={["plugin-grid", { "plugin-grid--detail": detailed }]}>
+      {plugins.map((plugin) => (
+        <PluginCard plugin={plugin} locale={locale} detailed={detailed} />
+      ))}
+    </div>
+    <div class="integration-note">
+      <span aria-hidden="true">↔</span>
+      <p>{t.plugins.transport}</p>
+      <p>{t.plugins.providers}</p>
+    </div>
+    {detailed && <p class="baseline">{t.plugins.date}</p>}
+  </div>
+</section>

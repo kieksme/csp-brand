@@ -1,0 +1,93 @@
+---
+import Button from "../atoms/Button.astro";
+import Badge from "../atoms/Badge.astro";
+import { asset, contactUrl, demoUrl } from "../../lib/paths";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale);
+---
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <span class="live-dot" aria-hidden="true"></span>
+        {t.hero.eyebrow}
+      </p>
+      <h1>
+        <span>{t.hero.first}</span>
+        <span>{t.hero.second}</span>
+        <span class="hero-accent">{t.hero.third}</span>
+      </h1>
+      <p class="hero-description">{t.hero.text}</p>
+      <div class="button-row">
+        <Button href={contactUrl(locale)}>{t.contact}</Button>
+        <Button href={demoUrl} variant="secondary">
+          {t.demo}
+        </Button>
+      </div>
+      <div class="hero-proof">
+        {t.hero.proof.map((item) => (
+          <span>
+            <span aria-hidden="true">✓</span>
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="module-background" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="visual-heading">
+        <Badge tone="accent">OPEN SOURCE. OPEN POSSIBILITIES.</Badge>
+        <span class="visual-corner" aria-hidden="true">
+          ↙
+        </span>
+      </div>
+      <figure class="product-window">
+        <div class="window-bar">
+          <span class="window-dots" aria-hidden="true">
+            <i></i>
+            <i></i>
+            <i></i>
+          </span>
+          <span>{t.hero.label}</span>
+          <span aria-hidden="true">↗</span>
+        </div>
+        <a href={demoUrl} aria-label={t.demo}>
+          <img
+            src={asset("images/portal-demo.webp")}
+            alt={
+              locale === "de"
+                ? "Acme-Demo des CSP mit synthetischer Bereitschaftsperson, digitalem Assistenten und Support-Navigation. Demo-Oberfläche auf Deutsch."
+                : "CSP Acme demo with a synthetic on-duty contact, digital assistant and support navigation. Demo interface in German."
+            }
+            width="1000"
+            height="770"
+            fetchpriority="high"
+          />
+        </a>
+        <figcaption>
+          {t.hero.note}
+          <span aria-hidden="true">↗</span>
+        </figcaption>
+      </figure>
+      <div class="code-note">
+        <span aria-hidden="true">{}</span>
+        <p>
+          {locale === "de"
+            ? "Offener Code. Eigene Infrastruktur."
+            : "Open code. Your infrastructure."}
+          <small>React · PWA · Fastify · Plugin SDK</small>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

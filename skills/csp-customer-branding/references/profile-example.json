@@ -1,0 +1,25 @@
+{
+  "branding": {
+    "name": "Example Service Portal",
+    "tagline": "Support that fits your team.",
+    "description": "Contacts, status and support knowledge in one place.",
+    "logoFile": "public/customer-logo.svg",
+    "iconFile": "public/customer-icon.svg"
+  },
+  "theme": {
+    "mode": "system",
+    "tokens": {
+      "accent": "#006B64",
+      "hero": "#102A2A"
+    },
+    "darkTokens": {
+      "paper": "#102A2A",
+      "card": "#183A36",
+      "ink": "#F7FAF9",
+      "muted": "#BBCFC7",
+      "line": "#45605A",
+      "soft": "#24463F"
+    }
+  },
+  "avatarsFile": "avatars.json"
+}

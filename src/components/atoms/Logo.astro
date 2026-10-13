@@ -1,0 +1,15 @@
+---
+import { asset } from "../../lib/paths";
+interface Props {
+  inverse?: boolean;
+}
+const { inverse = false } = Astro.props;
+---
+
+<img
+  class="logo"
+  src={asset(`brand/logo-${inverse ? "light" : "primary"}.svg`)}
+  alt="CSP by kieks.me"
+  width="164"
+  height="48"
+/>

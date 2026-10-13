@@ -1,0 +1,14 @@
+---
+import PageIntro from "../organisms/PageIntro.astro";
+import BrandShowcase from "../organisms/BrandShowcase.astro";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale).brand;
+---
+
+<PageIntro eyebrow={t.eyebrow} title={t.title} description={t.intro} />
+<BrandShowcase locale={locale} />
