@@ -9,6 +9,8 @@ Read AGENTS.md, the customer's selected profile, installed SDK version and the m
 
 The runnable [example plugin](assets/example-plugin/) targets CSP SDK 0.13.4. Read its package.json, src/browser.tsx and src/server.ts before adapting it. The synthetic label and public route demonstrate the contract; they are not a live provider integration. Use the customer's installed SDK version, updating sdkVersion and the SDK dependency together.
 
+The example uses pnpm 12.8.1 and a settings-only pnpm-workspace.yaml that permits the required esbuild build script. Preserve that file when copying the example. Assess new dependency build scripts individually rather than allowing all scripts.
+
 ## Package and runtime contract
 
 - Publish an ESM package with typed ./browser and ./server exports and dist included. cspPlugin contains a unique kebab-case id, compatible sdkVersion, browser/server export paths and optional requires containing plugin IDs, not package names. Metadata in both exports must match the manifest.

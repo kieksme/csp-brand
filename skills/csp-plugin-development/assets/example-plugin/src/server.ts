@@ -14,6 +14,7 @@ export default {
     ctx.app.get("/api/v1/example-service", load);
     ctx.knowledge.set("example-service", async () => {
       const result = await load();
+      if (!result.data) return [];
       return [
         {
           id: "example-service",
