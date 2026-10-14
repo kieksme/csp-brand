@@ -1,0 +1,39 @@
+---
+import { ComponentPlayground } from "../organisms/ComponentPlayground";
+import Button from "../atoms/Button.astro";
+import type { Locale } from "../../lib/paths";
+import { asset, brandRepo } from "../../lib/paths";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const en = locale === "en";
+const download = asset("downloads/kieksme-csp-ui-0.1.0.tgz");
+---
+
+<section class="section">
+  <div class="container">
+    <div class="ui-doc-intro">
+      <p class="eyebrow">@kieksme/csp-ui · 0.1.0</p>
+      <h1>
+        {en
+          ? "One library. Website and portal."
+          : "Eine Bibliothek. Website und Portal."}
+      </h1>
+      <p>
+        {en
+          ? "Shared React components, locally rendered Lucide icons, CI tokens, fonts and optional CSP theme. The website uses the same package as a React portal can use."
+          : "Gemeinsame React-Komponenten, lokal gerenderte Lucide-Icons, CI-Tokens, Schriften und ein optionales CSP-Theme. Die Website nutzt dasselbe Paket, das auch ein React-Portal verwenden kann."}
+      </p>
+      <div class="button-row">
+        <Button href={download}>
+          {en ? "Download UI package" : "UI-Paket herunterladen"}
+        </Button>
+        <Button href={`${brandRepo}/tree/main/packages/ui`} variant="secondary">
+          {en ? "API and source" : "API und Quellcode"}
+        </Button>
+      </div>
+    </div>
+    <ComponentPlayground locale={locale} download={download} client:load />
+  </div>
+</section>

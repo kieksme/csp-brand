@@ -1,5 +1,5 @@
 ---
-import Icon from "../atoms/Icon.astro";
+import { Disclosure } from "@kieksme/csp-ui";
 interface Props {
   question: string;
   answer: string;
@@ -7,12 +7,6 @@ interface Props {
 const { question, answer } = Astro.props;
 ---
 
-<details class="faq-item">
-  <summary>
-    {question}
-    <span aria-hidden="true">
-      <Icon name="plus" size={20} />
-    </span>
-  </summary>
+<Disclosure question={question}>
   <p>{answer}</p>
-</details>
+</Disclosure>

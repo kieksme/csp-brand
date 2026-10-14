@@ -33,6 +33,9 @@ const t = text(locale);
         <a href={sourceUrl}>{t.source}</a>
         <a href={brandRepo}>{t.footer.repo}</a>
         <a href={route(locale, "brand")}>{t.footer.brand}</a>
+        <a href={route(locale, "components")}>
+          {locale === "de" ? "Komponenten" : "Components"}
+        </a>
         <a href="https://kieks.me/impressum">{t.footer.legal}</a>
         <a href="https://kieks.me/datenschutz">{t.footer.privacy}</a>
       </nav>

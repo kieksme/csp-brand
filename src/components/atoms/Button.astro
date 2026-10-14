@@ -1,5 +1,5 @@
 ---
-import Icon from "./Icon.astro";
+import { LinkButton } from "@kieksme/csp-ui";
 interface Props {
   href: string;
   variant?: "primary" | "secondary" | "light";
@@ -8,11 +8,6 @@ interface Props {
 const { href, variant = "primary", arrow = true } = Astro.props;
 ---
 
-<a class:list={["button", `button--${variant}`]} href={href}>
+<LinkButton href={href} variant={variant} hasArrow={arrow}>
   <slot />
-  {arrow && (
-    <span aria-hidden="true">
-      <Icon name="arrow-up-right" size={18} />
-    </span>
-  )}
-</a>
+</LinkButton>

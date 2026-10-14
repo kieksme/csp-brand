@@ -8,3 +8,11 @@ brand/assets/*.svg
 public/brand/*.svg
 skills/csp-plugin-development/assets/example-plugin/dist
 skills/csp-plugin-development/assets/example-plugin/node_modules
+
+packages/ui/styles/tokens.css
+packages/ui/styles/marketing.css
+packages/ui/styles/portal.css
+packages/ui/styles/fonts.css
+packages/ui/brand
+packages/ui/fonts
+public/downloads

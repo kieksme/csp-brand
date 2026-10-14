@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Gemeinsame React-Komponentenbibliothek `@kieksme/csp-ui` mit Corporate-Identity-Tokens, lokalen Fonts, Brand-Assets und CSP-Theme-Preset.
+- Zweisprachige Live-Dokumentation, installierbarer Tarball und echte Portal-Integrationsprüfung.
+- Netlify-Konfiguration mit Root-Routen, neben bestehendem GitHub-Pages-Build.
+
 - Lucide als zentrale Icon-Library für Plugin-Symbole, Navigation, Pfeile und Statusmarker integriert; Lizenzhinweise ergänzt.
 
 ## 1.0.0 — 2026-10-13

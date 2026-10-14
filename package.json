@@ -9,31 +9,44 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev --host 127.0.0.1",
-    "build": "astro build",
+    "dev": "pnpm build:ui && astro dev --host 127.0.0.1",
+    "build": "pnpm build:ui && pnpm pack:ui && astro build",
     "preview": "astro preview --host 127.0.0.1",
     "typecheck": "astro check",
     "lint": "prettier --check .",
     "format": "prettier --write .",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test tests/*.test.mjs && pnpm test:ui",
     "test:browser": "playwright test",
     "assets": "node scripts/export-assets.mjs",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
-    "test:skills": "node scripts/verify-skills.mjs"
+    "check": "pnpm build:ui && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "test:skills": "node scripts/verify-skills.mjs",
+    "build:ui": "pnpm --filter @kieksme/csp-ui build",
+    "pack:ui": "node scripts/pack-ui.mjs",
+    "test:ui": "node --import tsx --test test/unit/components/*.test.tsx"
   },
   "dependencies": {
+    "@astrojs/react": "7.0.1",
     "@astrojs/sitemap": "3.7.4",
     "@fontsource-variable/inter": "5.3.0",
-    "@lucide/astro": "1.56.0",
-    "astro": "7.3.8"
+    "@kieksme/csp-ui": "workspace:*",
+    "astro": "7.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.64.0",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "@types/jsdom": "30.0.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "jsdom": "30.1.2",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.1",
     "sharp": "0.35.5",
+    "tsx": "4.23.15",
     "typescript": "5.9.3"
   }
 }

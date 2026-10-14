@@ -1,10 +1,11 @@
 ---
+import { Badge } from "@kieksme/csp-ui";
 interface Props {
   tone?: "neutral" | "accent";
 }
 const { tone = "neutral" } = Astro.props;
 ---
 
-<span class:list={["badge", `badge--${tone}`]}>
+<Badge tone={tone}>
   <slot />
-</span>
+</Badge>

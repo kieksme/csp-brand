@@ -1,0 +1,60 @@
+{
+  "name": "@kieksme/csp-ui",
+  "version": "0.1.0",
+  "description": "Shared React components and corporate identity for CSP portals and Astro websites.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "brand",
+    "fonts",
+    "styles",
+    "README.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens": {
+      "types": "./dist/quarks/tokens.d.ts",
+      "import": "./dist/quarks/tokens.js"
+    },
+    "./styles.css": "./styles/components.css",
+    "./tokens.css": "./styles/tokens.css",
+    "./marketing.css": "./styles/marketing.css",
+    "./portal.css": "./styles/portal.css",
+    "./fonts.css": "./styles/fonts.css",
+    "./brand/*": "./brand/*"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/build-assets.mjs"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "dependencies": {
+    "lucide-react": "1.57.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/react": "19.3.0",
+    "react": "19.3.0"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kieksme/csp-brand.git",
+    "directory": "packages/ui"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

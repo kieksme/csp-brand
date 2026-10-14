@@ -1,6 +1,15 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-const routes = ["", "en/", "plugins/", "en/plugins/", "brand/", "en/brand/"];
+const routes = [
+  "",
+  "en/",
+  "plugins/",
+  "en/plugins/",
+  "brand/",
+  "en/brand/",
+  "docs/components/",
+  "en/docs/components/",
+];
 
 for (const path of routes) {
   test(`page ${path || "home"}: accessible, complete and self-contained`, async ({
@@ -156,4 +165,26 @@ test("404 provides a working route back", async ({ page }) => {
   );
   await page.locator(".notfound .button").click();
   await expect(page).toHaveURL(/\/csp-brand\/$/);
+});
+
+test("shared React catalogue hydrates and the installable package is downloadable", async ({
+  page,
+}) => {
+  await page.goto("docs/components/");
+  await page.getByRole("button", { name: "Button ausprobieren" }).click();
+  await expect(page.locator("[data-demo-counter]")).toHaveText("Klicks: 1");
+  await page.getByLabel("Ihr Name", { exact: true }).fill("Lena");
+  await expect(page.locator("[data-demo-name]")).toHaveText("Hallo Lena");
+  await expect(
+    page.getByRole("button", { name: "Deaktiviert" }),
+  ).toBeDisabled();
+  const disclosure = page.locator(".ui-catalogue details");
+  await disclosure.locator("summary").click();
+  await expect(disclosure).toHaveAttribute("open", "");
+  const response = await page.request.get("downloads/kieksme-csp-ui-0.1.0.tgz");
+  expect(response.status()).toBe(200);
+  const bytes = await response.body();
+  expect([...bytes.subarray(0, 2)]).toEqual([0x1f, 0x8b]);
+  await page.locator(".language-link").click();
+  await expect(page).toHaveURL(/\/en\/docs\/components\/$/);
 });

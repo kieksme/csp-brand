@@ -23,7 +23,7 @@ jobs:
       - run: pnpm check
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
-      - name: Verify customer skill examples
+      - name: Verify customer skills and shared UI in CSP
         run: pnpm test:skills
       - uses: actions/upload-artifact@v7
         if: failure()

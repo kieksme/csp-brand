@@ -1,2 +1,6 @@
+packages:
+  - packages/*
 minimumReleaseAgeExclude:
-  - "@lucide/astro@1.56.0"
+  - "lucide-react@1.57.0"
+allowBuilds:
+  esbuild: true

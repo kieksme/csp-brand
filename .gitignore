@@ -7,3 +7,14 @@ test-results/
 .env.*
 !.env.example
 .DS_Store
+
+packages/ui/styles/tokens.css
+packages/ui/styles/marketing.css
+packages/ui/styles/portal.css
+packages/ui/styles/fonts.css
+packages/ui/fonts/
+packages/ui/brand/
+packages/ui/LICENSE
+packages/ui/THIRD-PARTY-NOTICES.md
+public/downloads/
+.netlify/

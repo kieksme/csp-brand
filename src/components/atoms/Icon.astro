@@ -1,59 +1,10 @@
 ---
-import {
-  Activity,
-  ArrowDownLeft,
-  ArrowLeftRight,
-  ArrowRight,
-  ArrowUpRight,
-  Blocks,
-  Check,
-  Clock3,
-  CodeXml,
-  CornerDownRight,
-  FileText,
-  Hash,
-  Infinity as InfinityIcon,
-  Menu,
-  MessagesSquare,
-  Phone,
-  Plus,
-  Send,
-  Users,
-} from "@lucide/astro";
-
-const icons = {
-  contact: Phone,
-  signl4: Clock3,
-  kuma: Activity,
-  content: FileText,
-  chat: MessagesSquare,
-  teams: Users,
-  slack: Hash,
-  telegram: Send,
-  module: Blocks,
-  arrow: ArrowRight,
-  "arrow-up-right": ArrowUpRight,
-  "arrow-down-left": ArrowDownLeft,
-  "arrow-left-right": ArrowLeftRight,
-  "corner-down-right": CornerDownRight,
-  check: Check,
-  menu: Menu,
-  plus: Plus,
-  infinity: InfinityIcon,
-  code: CodeXml,
-};
+import { Icon, type IconName } from "@kieksme/csp-ui";
 interface Props {
-  name?: keyof typeof icons;
+  name?: IconName;
   size?: number;
 }
 const { name = "module", size = 24 } = Astro.props;
-const Symbol = icons[name];
 ---
 
-<Symbol
-  class="icon"
-  size={size}
-  stroke-width={1.6}
-  aria-hidden="true"
-  focusable="false"
-/>
+<Icon name={name} size={size} />

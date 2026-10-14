@@ -11,6 +11,9 @@ import {
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawn } from "node:child_process";
+import http from "node:http";
+import { cspThemePreset } from "../packages/ui/dist/quarks/tokens.js";
+import { chromium } from "@playwright/test";
 const temp = await mkdtemp(join(tmpdir(), "csp-brand-skill-"));
 const plugin = join(temp, "plugin");
 const customer = join(temp, "customer");
@@ -50,6 +53,7 @@ const run = (args, cwd, expected = 0) =>
     });
   });
 try {
+  await mkdir(resolve("test-results"), { recursive: true });
   await cp(
     resolve("skills/csp-plugin-development/assets/example-plugin"),
     plugin,
@@ -62,6 +66,27 @@ try {
     },
   );
   await run(["install", "--package-import-method=hardlink"], plugin);
+  const uiTarball = resolve("public/downloads/kieksme-csp-ui-0.1.0.tgz");
+  await run(["add", uiTarball], plugin);
+  await writeFile(
+    join(plugin, "src/browser.tsx"),
+    `
+import { useState } from 'react';
+import { cspPlugin } from '../package.json';
+import type { BrowserContext, BrowserPlugin } from '@kieksme/csp-sdk';
+import { DataState, useLive } from '@kieksme/csp-sdk/browser';
+import { Button, Card, Badge } from '@kieksme/csp-ui';
+import '@kieksme/csp-ui/styles.css';
+import '@kieksme/csp-ui/fonts.css';
+import '@kieksme/csp-ui/portal.css';
+function ExampleService(ctx: BrowserContext) {
+ const state=useLive<{label:string}>(ctx,'/example-service');
+ const [count,setCount]=useState(0);
+ return <div className="csp-ui-portal"><Card title="Shared UI in CSP" icon="contact"><Badge tone="success">UI package installed</Badge><p>{state.data?.label}</p><Button onClick={()=>setCount(value=>value+1)}>Portal UI clicks: {count}</Button><DataState {...state}/></Card></div>;
+}
+export default {id:cspPlugin.id,sdkVersion:cspPlugin.sdkVersion,requires:cspPlugin.requires,sections:[{id:'example-service',label:'Example service',title:'Example service',order:80,component:ExampleService}]} satisfies BrowserPlugin;
+`,
+  );
   await run(["check"], plugin);
   await mkdir(join(temp, "tarballs"));
   await run(["pack", "--pack-destination", join(temp, "tarballs")], plugin);
@@ -83,11 +108,11 @@ try {
     ),
   );
   Object.assign(profile, partial);
+  profile.theme = cspThemePreset;
   profile.public = { ...profile.public, demo: true, staticDemo: true };
   await writeFile(profilePath, JSON.stringify(profile, null, 2));
   await mkdir(join(customer, "public"), { recursive: true });
-  const logo =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="25" fill="#006b64"/></svg>';
+  const logo = await readFile(resolve("brand/assets/logo-primary.svg"), "utf8");
   await writeFile(join(customer, "public/customer-logo.svg"), logo);
   await writeFile(join(customer, "public/customer-icon.svg"), logo);
   await writeFile(
@@ -113,6 +138,72 @@ try {
   await run(["exec", "csp", "build"], customer);
   const configured = JSON.parse(await readFile(profilePath, "utf8"));
   assert.ok(configured.plugins.includes("csp-example-service"));
+  const preview = http.createServer(async (req, res) => {
+    try {
+      let path = new URL(req.url ?? "/", "http://localhost").pathname;
+      if (path.endsWith("/")) path += "index.html";
+      const data = await readFile(join(customer, "dist", path));
+      const type = path.endsWith(".js")
+        ? "text/javascript"
+        : path.endsWith(".css")
+          ? "text/css"
+          : path.endsWith(".svg")
+            ? "image/svg+xml"
+            : path.endsWith(".woff2")
+              ? "font/woff2"
+              : "text/html";
+      res.writeHead(200, { "Content-Type": type });
+      res.end(data);
+    } catch {
+      res.writeHead(404);
+      res.end();
+    }
+  });
+  await new Promise((done) => preview.listen(0, "127.0.0.1", done));
+  const browser = await chromium.launch({
+    executablePath: process.env.CSP_BRAND_CHROMIUM || undefined,
+  });
+  try {
+    const page = await browser.newPage({
+      viewport: { width: 1200, height: 900 },
+    });
+    await page.emulateMedia({ reducedMotion: "reduce", colorScheme: "light" });
+    await page.goto(`http://127.0.0.1:${preview.address().port}/`, {
+      waitUntil: "networkidle",
+    });
+    await page.getByRole("button", { name: "Portal UI clicks: 0" }).click();
+    assert.equal(
+      await page.getByRole("button", { name: "Portal UI clicks: 1" }).count(),
+      1,
+    );
+    const colour = await page
+      .locator(".csp-ui-portal .csp-ui-button")
+      .evaluate((element) => getComputedStyle(element).backgroundColor);
+    assert.equal(colour, "rgb(0, 107, 100)");
+    await page.locator(".csp-ui-portal").screenshot({
+      path: resolve("test-results/csp-ui-integration.png"),
+      animations: "disabled",
+    });
+    await page
+      .getByRole("button", { name: "Dunkles Design aktivieren" })
+      .click();
+    await page.waitForFunction(
+      () =>
+        getComputedStyle(
+          document.querySelector(".csp-ui-portal .csp-ui-button"),
+        ).backgroundColor === "rgb(213, 243, 107)",
+    );
+    const foreground = await page
+      .locator(".csp-ui-portal .csp-ui-button")
+      .evaluate((element) => getComputedStyle(element).color);
+    assert.equal(foreground, "rgb(0, 0, 0)");
+    console.log(
+      "✓ Shared UI mounted and handled a real click inside the CSP portal, with inherited preset colour.",
+    );
+  } finally {
+    await browser.close();
+    await new Promise((done) => preview.close(done));
+  }
   await writeFile(
     join(customer, "skill-smoke.mjs"),
     `
@@ -143,7 +234,15 @@ await app.close();
 console.log('Brand/content schemas, browser export, metadata rejection and server route passed');
 `,
   );
-  await run(["exec", "node", "skill-smoke.mjs"], customer);
+  // CSS is validated by the actual portal build/browser above; Node only checks exports and server contracts.
+  await writeFile(
+    join(customer, "css-loader.mjs"),
+    `export async function load(url, context, nextLoad) { if (url.endsWith('.css')) return {format:'module',source:'',shortCircuit:true}; return nextLoad(url, context); }`,
+  );
+  await run(
+    ["exec", "node", "--loader", "./css-loader.mjs", "skill-smoke.mjs"],
+    customer,
+  );
   await run(
     ["exec", "csp", "plugin", "remove", "csp-example-service"],
     customer,
