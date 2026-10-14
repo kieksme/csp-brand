@@ -4,6 +4,18 @@ The reusable package lives in packages/ui and exports React components, framewor
 
 The Astro app consumes the real React components through @astrojs/react adapters. React CSP plugins can install the same built tarball without an Astro dependency. Browser callbacks are ordinary React handlers, while native disclosure controls remain functional without JavaScript.
 
+## Storybook
+
+Storybook 10 uses React/Vite, Controls, Actions, Autodocs and the Accessibility addon. All 13 public components have adjacent stories. The Quarks section renders live colour/spacing tokens and documents the corporate identity. English and German introductions cover installation, portal theming and licence boundaries.
+
+The manager uses CSP branding. The preview toolbar inherits the same light/dark runtime theme adapter as a customer portal. Theme-specific stories select the required theme explicitly.
+
+Development: `pnpm storybook` on port 6006. Tests: `pnpm test:storybook` runs browser rendering, play interactions and accessibility checks through the official Vitest addon. CI runs it after installing Chromium. The existing Node unit tests and portal integration proof remain in use.
+
+The ordinary website build copies Storybook to dist/storybook. Netlify publishes it at /storybook/ from the same main-branch build. Relative assets also support GitHub Pages under /csp-brand/storybook/. No separate Netlify project, API token in CI or paid visual-testing service is required.
+
+Stories and Storybook dependencies are excluded from the distributed UI package.
+
 ## Delivery
 
 - Implementation: packages/ui/src/components and packages/ui/src/quarks.

@@ -1,0 +1,50 @@
+.csp-story-surface {
+  padding: 24px;
+  border-radius: 8px;
+  font-family: var(--font-family);
+  box-sizing: border-box;
+  min-width: 0;
+}
+.csp-story-surface:has(.csp-ui-field),
+.csp-story-surface:has(.csp-ui-card),
+.csp-story-surface:has(.csp-ui-disclosure) {
+  width: min(100%, 720px);
+}
+.csp-story-stack {
+  display: grid;
+  gap: 20px;
+}
+.csp-token-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.csp-token-item {
+  padding: 16px;
+  border: 1px solid #dbe5df;
+  border-radius: 8px;
+  color: #102a2a;
+  background: #ffffff;
+}
+.csp-token-item span {
+  display: block;
+  height: 72px;
+  margin-bottom: 12px;
+  border: 1px solid #dbe5df;
+}
+.csp-token-item strong,
+.csp-token-item code {
+  display: block;
+}
+.csp-doc-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 24px 0;
+}
+.csp-doc-table th,
+.csp-doc-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #dbe5df;
+}

@@ -26,6 +26,6 @@ export default defineConfig({
     command: "pnpm build && node scripts/serve-dist.mjs",
     url: "http://127.0.0.1:4322/csp-brand/",
     reuseExistingServer: false,
-    timeout: 60000,
+    timeout: 120000,
   },
 });

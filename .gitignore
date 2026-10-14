@@ -18,3 +18,5 @@ packages/ui/LICENSE
 packages/ui/THIRD-PARTY-NOTICES.md
 public/downloads/
 .netlify/
+
+storybook-static/

@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "skills/**/assets", "node_modules"],
+  "exclude": ["dist", "skills/**/assets", "node_modules", "storybook-static"],
   "compilerOptions": {
     "jsx": "react-jsx"
   }

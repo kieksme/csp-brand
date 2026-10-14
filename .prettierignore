@@ -16,3 +16,5 @@ packages/ui/styles/fonts.css
 packages/ui/brand
 packages/ui/fonts
 public/downloads
+
+storybook-static/

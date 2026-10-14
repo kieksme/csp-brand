@@ -14,6 +14,12 @@ pnpm pack:ui
 
 Install `public/downloads/kieksme-csp-ui-0.1.0.tgz` in a standalone customer or React project using `pnpm add /absolute/path/to/kieksme-csp-ui-0.1.0.tgz`. The built website also serves this versioned package under `/downloads/`. This version is distributed as a tarball; do not assume an npm publication exists.
 
+## Storybook
+
+From the csp-brand checkout, `pnpm storybook` starts the component explorer. `pnpm test:storybook` runs story render, interaction and accessibility tests in Chromium. The published explorer is at https://csp-brand-kieksme.netlify.app/storybook/. All public components have stories and automatic API documentation. The Quarks section documents the corporate identity.
+
+Stories sit alongside source components but are excluded from the package build. Consumers do not install Storybook or its test tools. The public package API and version remain unchanged.
+
 ## React
 
 ```tsx

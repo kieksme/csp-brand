@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Storybook 10 für alle UI-Komponenten mit Controls, Autodocs, Actions, CI-Tokens und Light-/Dark-Themes.
+- Browserbasierte Story-Tests für Interaktionen und Barrierefreiheit, integriert in CI.
+- Veröffentlichung des Komponenten-Explorers unter `/storybook/` im gemeinsamen Netlify-/Pages-Build.
+
 - Gemeinsame React-Komponentenbibliothek `@kieksme/csp-ui` mit Corporate-Identity-Tokens, lokalen Fonts, Brand-Assets und CSP-Theme-Preset.
 - Zweisprachige Live-Dokumentation, installierbarer Tarball und echte Portal-Integrationsprüfung.
 - Netlify-Konfiguration mit Root-Routen, neben bestehendem GitHub-Pages-Build.

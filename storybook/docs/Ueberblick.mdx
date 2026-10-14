@@ -1,0 +1,47 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Start/Deutsch" />
+
+# Eine Bibliothek für Website und Portal
+
+`@kieksme/csp-ui` bündelt die React-Komponenten und Corporate Identity der CSP-Brand-Seite und der React-Kundenportale. Die Stories verwenden die echten Implementierungen. Über Controls können Sie deren Props direkt ausprobieren.
+
+## Komponenten erkunden
+
+- **Quarks:** Farben, Abstände, Typografie und der optionale CSP-Theme-Preset.
+- **Atoms:** Button, LinkButton, Badge, Logo, Avatar, Icon, Input, Label und TextArea.
+- **Molecules:** FormField, Card, Disclosure und Alert.
+
+Die Theme-Werkzeugleiste wechselt zwischen CSP Light und CSP Dark. Die Stories übernehmen das Kundentheme über denselben `csp-ui-portal`-Adapter wie das Portal. Einzelne Stories wählen bewusst ein Theme für die dargestellte Variante.
+
+## Paket installieren
+
+[Laden Sie das versionierte UI-Paket herunter](./downloads/kieksme-csp-ui-0.1.0.tgz) und installieren Sie die Datei:
+
+```sh
+pnpm add ./kieksme-csp-ui-0.1.0.tgz
+```
+
+```tsx
+import { Button, Card } from "@kieksme/csp-ui";
+import "@kieksme/csp-ui/styles.css";
+import "@kieksme/csp-ui/fonts.css";
+
+<Card title="Support">
+  <Button onClick={() => openRequest()}>Support kontaktieren</Button>
+</Card>;
+```
+
+Das Paket steht als Tarball bereit. Eine npm-Veröffentlichung ist damit nicht zugesichert. Es benötigt React 19 und hat keine Astro-, Storybook- oder Provider-Abhängigkeit. Storybook dient der Entwicklung und Dokumentation.
+
+## Kundenportale
+
+Importieren Sie `@kieksme/csp-ui/portal.css` nach dem Komponenten-CSS. Ein Wrapper mit `csp-ui-portal` übernimmt die Laufzeitfarben und Schriften des Kunden. Der optionale Preset `brand/portal-theme.json` gehört in das `theme`-Feld des Profils. Kontakte und Provider-Einstellungen bleiben separat.
+
+Die Komponenten enthalten keine Support- oder Provider-Geschäftslogik. Im Produkt ist der KI-Assistent optional: Kunden können die Hotline nutzen oder über ein eingerichtetes Support-Plugin einen Menschen anfordern. Vereinbarte Servicezeiten gelten. Die 80 % Vorfilterung sind ein Zielwert ohne eigene Messung.
+
+## Dokumentation und Lizenzen
+
+[API und Quellcode](https://github.com/kieksme/csp-brand/tree/main/packages/ui) · <a href="../" target="_top">Brand-Seite</a> · <a href="./?path=/docs/start-overview--docs" target="_top">English</a>
+
+Komponenten und Tokens sind MIT. CSP-Logos haben separate Markenbedingungen. Inter ist OFL, die Lucide-/Feather-Hinweise liegen im Paket. Die Beispiele enthalten synthetische Daten und versenden keine Supportanfragen.

@@ -22,6 +22,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm exec playwright install --with-deps chromium
+      - name: Verify Storybook render, interaction and accessibility tests
+        run: pnpm test:storybook
       - run: pnpm test:browser
       - name: Verify customer skills and shared UI in CSP
         run: pnpm test:skills

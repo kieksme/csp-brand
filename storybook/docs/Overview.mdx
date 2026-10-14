@@ -1,0 +1,47 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Start/Overview" />
+
+# One library for website and portal
+
+`@kieksme/csp-ui` provides the React components and corporate identity shared by the CSP Brand website and React customer portals. Stories render the real implementations. Controls let you explore their props without editing code.
+
+## Explore the components
+
+- **Quarks:** colours, spacing, typography and the optional CSP theme preset.
+- **Atoms:** Button, LinkButton, Badge, Logo, Avatar, Icon, Input, Label and TextArea.
+- **Molecules:** FormField, Card, Disclosure and Alert.
+
+The theme toolbar switches between CSP Light and CSP Dark. Stories inherit the customer theme through the same `csp-ui-portal` adapter used by the portal. Some stories intentionally select a theme to show a specific variant.
+
+## Install the package
+
+[Download the versioned UI package](./downloads/kieksme-csp-ui-0.1.0.tgz), then install the downloaded file:
+
+```sh
+pnpm add ./kieksme-csp-ui-0.1.0.tgz
+```
+
+```tsx
+import { Button, Card } from "@kieksme/csp-ui";
+import "@kieksme/csp-ui/styles.css";
+import "@kieksme/csp-ui/fonts.css";
+
+<Card title="Support">
+  <Button onClick={() => openRequest()}>Contact support</Button>
+</Card>;
+```
+
+The package is distributed as a tarball. No npm publication is implied. It requires React 19 and has no Astro, Storybook or provider dependency. Storybook is a development and documentation tool.
+
+## Customer portals
+
+Import `@kieksme/csp-ui/portal.css` after the component CSS, then place `csp-ui-portal` on a wrapper to inherit customer runtime colours and fonts. The optional `brand/portal-theme.json` preset belongs in the profile's `theme` field. It does not change contacts or provider settings.
+
+Components contain no support or provider business logic. The KI assistant remains optional in the product: customers can use the hotline or request a human through a configured support plugin. Agreed service hours apply. The 80% pre-screening goal is not a measured result.
+
+## Documentation and licences
+
+[API and source](https://github.com/kieksme/csp-brand/tree/main/packages/ui) · <a href="../" target="_top">Brand website</a> · <a href="./?path=/docs/start-deutsch--docs" target="_top">Deutsch</a>
+
+Component and token code is MIT. CSP logos have separate brand terms. Inter is OFL, and Lucide/Feather notices accompany the package. Examples use synthetic data and send no support requests.

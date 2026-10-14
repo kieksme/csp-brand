@@ -1,0 +1,49 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColourTokens, SpacingTokens } from "./Identity";
+
+<Meta title="Quarks/Corporate Identity" />
+
+# CSP by kieks.me
+
+The visual identity uses petrol for actions, lime for accents and a clear light surface. The angular headset stands for listening and direct contact with the service team.
+
+## Colour tokens
+
+These values come directly from `packages/ui/src/quarks/tokens.ts`, the source of the generated CSS and CSP profile preset.
+
+<ColourTokens />
+
+Use lime with dark text. Avoid lime text on a light background. The theme toolbar lets you inspect component contrast in the portal's light and dark themes.
+
+## Typography and spacing
+
+Inter Variable is bundled locally. No external font service is required. The font family, sizes, radius, motion settings and content width are exported from `@kieksme/csp-ui/tokens`.
+
+<SpacingTokens />
+
+Component radius is 8px. Movement is subtle and respects reduced-motion preferences.
+
+## Original brand artwork
+
+The Logo stories show the original headset wordmark and icon variants. Keep their proportions. Use the light logo on dark surfaces. The wordmark's minimum width is 120px, the icon's is 24px. Leave at least half the symbol height around the artwork.
+
+UI symbols come from Lucide. The CSP headset logo remains original brand artwork.
+
+## Customer themes
+
+```tsx
+import "@kieksme/csp-ui/styles.css";
+import "@kieksme/csp-ui/portal.css";
+
+<div className="csp-ui-portal">
+  <Card title="Customer service">
+    <Button>Contact support</Button>
+  </Card>
+</div>;
+```
+
+The adapter inherits the customer portal's runtime variables. `cspThemePreset` and `brand/portal-theme.json` are optional presets. Customer-specific processes, authentication and provider credentials belong in the application, outside this library.
+
+## Licence boundaries
+
+Components and tokens are MIT. CSP artwork uses [separate brand terms](https://github.com/kieksme/csp-brand/blob/main/BRAND-LICENSE.md). Inter is OFL. The package retains Lucide and Feather notices. [Full Brand Guide](https://github.com/kieksme/csp-brand/blob/main/brand/README.md).

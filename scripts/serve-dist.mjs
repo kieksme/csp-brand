@@ -11,6 +11,7 @@ const mime = {
   ".webp": "image/webp",
   ".woff2": "font/woff2",
   ".xml": "application/xml",
+  ".json": "application/json",
 };
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");

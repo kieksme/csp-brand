@@ -4,6 +4,7 @@ Marketing-Website und Corporate Identity für das [Customer Service Portal](http
 
 - [Website auf Netlify](https://csp-brand-kieksme.netlify.app/)
 - [GitHub-Pages-Vorschau](https://kieksme.github.io/csp-brand/)
+- [Storybook](https://csp-brand-kieksme.netlify.app/storybook/)
 - [Komponentenbibliothek](packages/ui/README.md) und [Live-Dokumentation](https://csp-brand-kieksme.netlify.app/docs/components/)
 - [Produkt-Wiki](https://github.com/kieksme/csp/wiki)
 - [Brand-Guide](brand/README.md) und [Nutzungsregeln](BRAND-LICENSE.md)
@@ -25,6 +26,8 @@ Die Seite liegt unter `http://localhost:4321/csp-brand/`. Astro 7 startet Dev-/P
 pnpm check
 pnpm exec playwright install chromium
 pnpm test:browser
+pnpm test:storybook
+pnpm storybook
 pnpm preview
 ```
 
@@ -39,6 +42,12 @@ Atomic Design: Quarks → Atoms → Molecules → Organisms → Templates → Pa
 Die gemeinsame React-19-Bibliothek `@kieksme/csp-ui` liegt in `packages/ui`. Sie enthält Tokens, lokale Fonts, Brand-Assets, einen CSP-Theme-Preset und wiederverwendbare Komponenten. Astro-Adapter rendern dieselben Implementierungen. `pnpm pack:ui` erzeugt einen installierbaren Tarball unter `public/downloads/`; das Paket ist noch nicht auf npm veröffentlicht. `pnpm test:skills` installiert es in einem temporären CSP-Plugin und prüft einen echten Button-Klick im Kundenportal.
 
 UI-Icons verwenden Lucide über `src/components/atoms/Icon.astro`. Die typisierte Zuordnung importiert nur benötigte Icons aus `lucide-react` in der gemeinsamen Bibliothek; sie werden als dekorative SVGs im Build gerendert. Das eigene CSP-Logo bleibt ein separates Markenasset. Lizenzhinweise stehen in THIRD-PARTY-NOTICES.md.
+
+## Storybook
+
+`pnpm storybook` startet den Komponenten-Explorer unter `http://127.0.0.1:6006/`. Storybook 10 mit React/Vite dokumentiert alle 13 exportierten Komponenten über Stories, Autodocs, Controls, Actions und Accessibility. Light-/Dark-Themes übernehmen dieselben CSP-Theme-Tokens wie das Kundenportal. Quarks und Markenregeln sind dokumentiert; der Einstieg ist deutsch und englisch verfügbar.
+
+`pnpm test:storybook` führt Render-, Interaktions- und Accessibility-Tests mit Vitest/Chromium aus. `pnpm build` erzeugt Website und Storybook und legt den Explorer in `dist/storybook/` ab. Relative Assets funktionieren auf Netlify (`/storybook/`) und GitHub Pages (`/csp-brand/storybook/`). Storybook ist nur eine Entwicklungsabhängigkeit. Stories gehen nicht in den UI-Tarball ein.
 
 ## Veröffentlichung
 
