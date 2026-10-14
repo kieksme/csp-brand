@@ -1,3 +1,7 @@
+body {
+  background: var(--paper, #f7faf9);
+  color: var(--ink, #102a2a);
+}
 .csp-story-surface {
   padding: 24px;
   border-radius: 8px;
@@ -22,16 +26,16 @@
 }
 .csp-token-item {
   padding: 16px;
-  border: 1px solid #dbe5df;
+  border: 1px solid var(--line, #dbe5df);
   border-radius: 8px;
-  color: #102a2a;
-  background: #ffffff;
+  color: var(--ink, #102a2a);
+  background: var(--card, #ffffff);
 }
 .csp-token-item span {
   display: block;
   height: 72px;
   margin-bottom: 12px;
-  border: 1px solid #dbe5df;
+  border: 1px solid var(--line, #dbe5df);
 }
 .csp-token-item strong,
 .csp-token-item code {
@@ -46,5 +50,5 @@
 .csp-doc-table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #dbe5df;
+  border-bottom: 1px solid var(--line, #dbe5df);
 }

@@ -1,19 +1,28 @@
 import { create } from "storybook/theming/create";
-import { tokens } from "../packages/ui/src/quarks/tokens";
-export const cspStorybookTheme = create({
-  base: "light",
-  brandTitle: "CSP by kieks.me — Components",
-  brandUrl: "../docs/components/",
-  brandImage: "./brand/logo-primary.svg",
-  brandTarget: "_self",
-  colorPrimary: tokens.colors.petrol,
-  colorSecondary: tokens.colors.petrol,
-  appBg: tokens.colors.paper,
-  appContentBg: tokens.colors.white,
-  appBorderColor: tokens.colors.line,
-  appBorderRadius: 8,
-  fontBase: tokens.typography.family,
-  textColor: tokens.colors.ink,
-  barTextColor: tokens.colors.muted,
-  barSelectedColor: tokens.colors.petrol,
-});
+import { cspThemePreset, tokens } from "../packages/ui/src/quarks/tokens";
+
+export function getCspStorybookTheme(dark = false) {
+  const colors = dark
+    ? { ...tokens.colors, ...cspThemePreset.darkTokens }
+    : tokens.colors;
+  const accent = dark ? cspThemePreset.darkTokens.accent : colors.petrol;
+  return create({
+    base: dark ? "dark" : "light",
+    brandTitle: "CSP by kieks.me — Components",
+    brandUrl: "../docs/components/",
+    brandImage: dark ? "./brand/logo-light.svg" : "./brand/logo-primary.svg",
+    brandTarget: "_self",
+    colorPrimary: accent,
+    colorSecondary: accent,
+    appBg: colors.paper,
+    appContentBg: dark ? cspThemePreset.darkTokens.card : colors.white,
+    appBorderColor: colors.line,
+    appBorderRadius: 8,
+    fontBase: tokens.typography.family,
+    textColor: colors.ink,
+    barTextColor: colors.muted,
+    barSelectedColor: accent,
+    barBg: dark ? cspThemePreset.darkTokens.card : colors.white,
+  });
+}
+export const cspStorybookTheme = getCspStorybookTheme();

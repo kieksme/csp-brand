@@ -1,10 +1,16 @@
 import type { Preview } from "@storybook/react-vite";
-import type { CSSProperties } from "react";
+import { lazy, Suspense, useEffect, type CSSProperties } from "react";
+import type { DocsContainerProps } from "@storybook/addon-docs/blocks";
 import "@kieksme/csp-ui/styles.css";
 import "@kieksme/csp-ui/portal.css";
 import "@kieksme/csp-ui/fonts.css";
 import { cspThemePreset, tokens } from "../packages/ui/src/quarks/tokens";
-import { cspStorybookTheme } from "./theme";
+import { applyPreviewTheme } from "./preview-theme";
+const ThemeDocsContainer = lazy(() =>
+  import("./ThemeDocsContainer").then((module) => ({
+    default: module.ThemeDocsContainer,
+  })),
+);
 import "./preview.css";
 const preview: Preview = {
   globalTypes: {
@@ -25,6 +31,9 @@ const preview: Preview = {
   decorators: [
     (Story, context) => {
       const dark = context.globals.theme === "dark";
+      useEffect(() => {
+        if (context.viewMode === "story") applyPreviewTheme(dark);
+      }, [dark, context.viewMode]);
       const theme = {
         ...cspThemePreset.tokens,
         ...(dark ? cspThemePreset.darkTokens : {}),
@@ -55,12 +64,20 @@ const preview: Preview = {
   parameters: {
     layout: "padded",
     controls: { expanded: true },
-    docs: { theme: cspStorybookTheme, codePanel: true },
+    docs: {
+      container: (props: DocsContainerProps) => (
+        <Suspense>
+          <ThemeDocsContainer {...props} />
+        </Suspense>
+      ),
+      codePanel: true,
+    },
     a11y: { test: "error" },
     options: {
       storySort: { order: ["Start", "Quarks", "Atoms", "Molecules"] },
     },
     backgrounds: {
+      disable: true,
       options: {
         light: { name: "Paper", value: tokens.colors.paper },
         dark: { name: "Ink", value: tokens.colors.ink },

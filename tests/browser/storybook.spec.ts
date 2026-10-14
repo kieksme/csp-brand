@@ -98,3 +98,63 @@ test("Storybook introduction language links preserve the explorer and publish ba
     }),
   ).toBeVisible();
 });
+
+test("theme switch updates docs, preview background and explorer, and survives navigation", async ({
+  page,
+}, testInfo) => {
+  test.skip(
+    testInfo.project.name === "mobile",
+    "Theme toolbar is in the desktop explorer; mobile docs are tested with persisted globals below.",
+  );
+  await page.goto("storybook/?path=/docs/atoms-button--docs");
+  const preview = page.frameLocator("#storybook-preview-iframe");
+  await expect(preview.locator(".sbdocs-wrapper")).toBeVisible();
+  await page
+    .getByRole("button", { name: "Customer portal theme CSP Light" })
+    .click();
+  await page.getByText("CSP Dark", { exact: true }).click();
+  await expect(preview.locator(".sbdocs-wrapper")).toHaveCSS(
+    "background-color",
+    "rgb(24, 58, 54)",
+  );
+  await expect(preview.locator("body")).toHaveCSS(
+    "background-color",
+    "rgb(16, 42, 42)",
+  );
+  await expect(
+    page.locator('img[src$="logo-light.svg"]').first(),
+  ).toBeVisible();
+  await page.locator('[data-item-id="molecules-card"]').click();
+  await page.locator('[data-item-id="molecules-card--docs"]').click();
+  await expect(preview.locator(".sbdocs-wrapper")).toHaveCSS(
+    "background-color",
+    "rgb(24, 58, 54)",
+  );
+  await page
+    .getByRole("button", { name: "Customer portal theme CSP Dark" })
+    .click();
+  await page.getByText("CSP Light", { exact: true }).click();
+  await expect(preview.locator(".sbdocs-wrapper")).toHaveCSS(
+    "background-color",
+    "rgb(255, 255, 255)",
+  );
+  await expect(
+    page.locator('img[src$="logo-primary.svg"]').first(),
+  ).toBeVisible();
+});
+
+test("standalone documentation restores a dark theme from the URL", async ({
+  page,
+}) => {
+  await page.goto(
+    "storybook/?path=/docs/start-overview--docs&globals=theme:dark",
+  );
+  const preview = page.frameLocator("#storybook-preview-iframe");
+  await expect(
+    preview.getByRole("heading", { level: 1 }).first(),
+  ).toBeVisible();
+  await expect(preview.locator(".sbdocs-wrapper")).toHaveCSS(
+    "background-color",
+    "rgb(24, 58, 54)",
+  );
+});

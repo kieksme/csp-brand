@@ -8,7 +8,7 @@ The Astro app consumes the real React components through @astrojs/react adapters
 
 Storybook 10 uses React/Vite, Controls, Actions, Autodocs and the Accessibility addon. All 13 public components have adjacent stories. The Quarks section renders live colour/spacing tokens and documents the corporate identity. English and German introductions cover installation, portal theming and licence boundaries.
 
-The manager uses CSP branding. The preview toolbar inherits the same light/dark runtime theme adapter as a customer portal. Theme-specific stories select the required theme explicitly.
+The manager uses CSP branding. The theme toolbar synchronizes the explorer, documentation and preview background; documentation listens for global changes and uses matching light/dark Storybook themes. The preview inherits the same light/dark runtime theme adapter as a customer portal. Theme-specific stories select the required theme explicitly.
 
 Development: `pnpm storybook` on port 6006. Tests: `pnpm test:storybook` runs browser rendering, play interactions and accessibility checks through the official Vitest addon. CI runs it after installing Chromium. The existing Node unit tests and portal integration proof remain in use.
 
