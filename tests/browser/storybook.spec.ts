@@ -60,6 +60,13 @@ test("Storybook controls and customer themes update the actual component", async
   await page.getByText("CSP Dark", { exact: true }).click();
   await expect(button).toHaveCSS("background-color", "rgb(213, 243, 107)");
   await expect(button).toHaveCSS("color", "rgb(0, 0, 0)");
+  await page.locator('label[for="control-isDisabled"]').click();
+  await expect(button).toBeDisabled();
+  await page.locator('label[for="control-isDisabled"]').click();
+  await expect(button).toBeEnabled();
+  await page.locator('label[for="control-isLoading"]').click();
+  await expect(button).toBeDisabled();
+  await expect(button).toHaveAttribute("aria-busy", "true");
 });
 
 test("Storybook introduction language links preserve the explorer and publish base", async ({

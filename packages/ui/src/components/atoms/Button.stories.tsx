@@ -6,7 +6,23 @@ const meta = {
   title: "Atoms/Button",
   component: Button,
   tags: ["autodocs"],
-  args: { children: "Contact support", onClick: fn() },
+  args: {
+    children: "Contact support",
+    onClick: fn(),
+    variant: "primary",
+    isLoading: false,
+    isDisabled: false,
+    hasArrow: false,
+  },
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["primary", "secondary", "light", "danger"],
+    },
+    isLoading: { control: "boolean" },
+    isDisabled: { control: "boolean" },
+    hasArrow: { control: "boolean" },
+  },
   parameters: {
     controls: {
       include: ["children", "variant", "hasArrow", "isDisabled", "isLoading"],

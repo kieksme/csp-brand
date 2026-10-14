@@ -4,6 +4,13 @@ import { LinkButton } from "./Button";
 const meta = {
   title: "Atoms/LinkButton",
   component: LinkButton,
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["primary", "secondary", "light", "danger"],
+    },
+    hasArrow: { control: "boolean" },
+  },
   tags: ["autodocs"],
   args: { href: "../docs/components/", children: "Component documentation" },
   parameters: {
