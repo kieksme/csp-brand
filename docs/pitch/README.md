@@ -1,6 +1,8 @@
 # CSP Pitchdeck
 
-Die aktuelle Wettbewerbsfassung ist **`CSP-Pitchdeck-DE-Wettbewerb-2026-10-14.pptx`**: 24 bearbeitbare Folien im CSP-Branding mit sechs nativen Vergleichstabellen, Sprechernotizen und Primärquellen. Die bisherige 14-Folien-Fassung `CSP-Pitchdeck-DE.pptx` bleibt erhalten.
+Die aktuelle Vortragsfassung ist **`CSP-Pitchdeck-DE-Kurzfassung-2026-10-14.pptx`**: 24 bearbeitbare Folien mit kurzen Kernaussagen, sechs vereinfachten Vergleichstabellen und ausführlichem Sprechtext in den Notizen. Erläuterungen, Preise, Bedingungen und Quellen liegen in den Sprechernotizen. Die frühere Wettbewerbsfassung `CSP-Pitchdeck-DE-Wettbewerb-2026-10-14.pptx` und die ursprüngliche 14-Folien-Fassung bleiben erhalten.
+
+In PowerPoint: **Ansicht → Notizen** bzw. **Referentenansicht** öffnen. Die Ergänzungen sind Sprechernotizen, keine Review-Kommentare. Jede Folie enthält einen Sprechtext und die bisherigen Details mit Quellen.
 
 Die [Wettbewerbsrecherche](competition-research-2026-10-14.md) dokumentiert elf Angebote, Preisbedingungen, Quellen und die Grenzen der USP-Aussagen. Recherche- und Preisstand: 14. Oktober 2026. Vor Kundenterminen aktualisieren.
 
