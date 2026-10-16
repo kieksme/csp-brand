@@ -11,7 +11,11 @@ const { locale } = Astro.props;
 const t = text(locale).aiService;
 ---
 
-<section id="ai-service" class="section ai-service">
+<section
+  data-analytics-section="ai-service"
+  id="ai-service"
+  class="section ai-service"
+>
   <div class="container">
     <SectionHeading
       eyebrow={t.eyebrow}

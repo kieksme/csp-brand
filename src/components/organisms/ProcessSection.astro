@@ -10,7 +10,7 @@ const { locale } = Astro.props;
 const t = text(locale).process;
 ---
 
-<section id="project" class="section">
+<section data-analytics-section="project" id="project" class="section">
   <div class="container">
     <SectionHeading {...t} />
     <div class="steps-grid">

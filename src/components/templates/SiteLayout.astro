@@ -27,7 +27,10 @@ const image = absolute(asset(`brand/social-${locale}.png`));
 ---
 
 <!doctype html>
-<html lang={locale === "de" ? "de" : "en-GB"}>
+<html
+  lang={locale === "de" ? "de" : "en-GB"}
+  data-analytics-page={noindex ? undefined : page}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -95,5 +98,9 @@ const image = absolute(asset(`brand/social-${locale}.png`));
       <slot />
     </main>
     <Footer locale={locale} />
+    <script>
+      import { startAnalytics } from "../../lib/analytics";
+      startAnalytics();
+    </script>
   </body>
 </html>

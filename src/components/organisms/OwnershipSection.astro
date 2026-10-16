@@ -10,7 +10,7 @@ const { locale } = Astro.props;
 const t = text(locale).ownership;
 ---
 
-<section class="section ownership">
+<section data-analytics-section="ownership" class="section ownership">
   <div class="container">
     <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.intro} />
     <div class="benefit-grid">
