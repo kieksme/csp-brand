@@ -10,7 +10,7 @@ const { locale } = Astro.props;
 const t = text(locale).faq;
 ---
 
-<section class="section">
+<section data-analytics-section="faq" class="section">
   <div class="container faq-grid">
     <SectionHeading eyebrow={t.eyebrow} title={t.title} />
     <div>

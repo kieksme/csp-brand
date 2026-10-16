@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Anonyme Swetrix-Analyse für die deutsche und englische Website, mit eigenen Events und fünf Conversion-Funnels; DNT, Vorschau-Ausschluss und datensparsame Übertragung.
+
 - Storybook 10 für alle UI-Komponenten mit Controls, Autodocs, Actions, CI-Tokens und Light-/Dark-Themes.
 - Browserbasierte Story-Tests für Interaktionen und Barrierefreiheit, integriert in CI.
 - Veröffentlichung des Komponenten-Explorers unter `/storybook/` im gemeinsamen Netlify-/Pages-Build.

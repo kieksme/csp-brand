@@ -25,6 +25,11 @@ const t = text(locale);
         </span>
       </a>
     </div>
+    <p class="small-note">
+      {locale === "de"
+        ? "Anonyme Nutzungsanalyse mit Swetrix, ohne Cookies. Do Not Track wird respektiert."
+        : "Anonymous usage analytics with Swetrix, without cookies. Do Not Track is respected."}
+    </p>
     <div class="footer-bottom">
       <p>
         © {new Date().getFullYear()} kieks.me · {t.footer.copyright}

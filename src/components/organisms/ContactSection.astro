@@ -12,7 +12,7 @@ const { locale } = Astro.props;
 const t = text(locale);
 ---
 
-<section id="contact" class="contact-section">
+<section data-analytics-section="contact" id="contact" class="contact-section">
   <div class="container contact-grid">
     <SectionHeading
       eyebrow={t.cta.eyebrow}
