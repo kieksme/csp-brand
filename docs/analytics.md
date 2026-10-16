@@ -22,9 +22,9 @@ Alle Events enthalten nur `locale` (`de`/`en`) und `page` (`home`, `plugins`, `b
 | `DEMO_CLICK`      | Klick auf die Acme-Demo                                                                                  |
 | `CONTACT_CLICK`   | Klick auf E-Mail-Link; misst Kontaktinteresse, keinen E-Mail-Versand                                     |
 | `PLUGINS_CLICK`   | Navigation zum Plugin-Katalog; optional `plugin` aus den acht Katalog-IDs                                |
-| `DOCS_CLICK`      | Produkt-Dokumentation auf GitHub geöffnet                                                                |
-| `SOURCE_CLICK`    | Produkt-Quellcode auf GitHub geöffnet                                                                    |
-| `SKILLS_CLICK`    | Kunden-Skills auf GitHub geöffnet                                                                        |
+| `DOCS_CLICK`      | Produkt-Dokumentation auf GitHub angeklickt                                                                |
+| `SOURCE_CLICK`    | Produkt-Quellcode auf GitHub angeklickt                                                                    |
+| `SKILLS_CLICK`    | Kunden-Skills auf GitHub angeklickt                                                                        |
 | `LANGUAGE_SWITCH` | Sprachwechsel angeklickt                                                                                 |
 | `DOWNLOAD_CLICK`  | UI-Paket angeklickt; kein Nachweis eines abgeschlossenen Downloads                                       |
 | `STORYBOOK_CLICK` | Komponenten-Explorer angeklickt                                                                          |
