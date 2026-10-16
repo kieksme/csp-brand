@@ -1,16 +1,25 @@
 # Website-Analytics / Website analytics
 
-Die Website verwendet das private Swetrix-Projekt **csp-brand** (`poqo5aTL3ArD`) auf [analytics.kieks.me](https://analytics.kieks.me/). Acme bleibt ein getrenntes Projekt. Der Browser sendet direkt an `https://analytics-api.kieks.me/log` (Seitenaufruf) und `/log/custom` (Events). Die Projekt-ID ist öffentlich; API-Schlüssel werden nicht ausgeliefert.
+Die beiden veröffentlichten Website-Einstiege erhalten eigene private Swetrix-Projekte auf [analytics.kieks.me](https://analytics.kieks.me/):
+
+| Auftritt                   | Öffentliche URL                        | Projekt         | Projekt-ID     |
+| -------------------------- | -------------------------------------- | --------------- | -------------- |
+| Marketing                  | https://csp-brand-kieksme.netlify.app/ | `csp-marketing` | `poqo5aTL3ArD` |
+| Produkt-/Entwickleransicht | https://kieksme.github.io/csp-brand/   | `csp-product`   | `zU7UlsSu89t1` |
+
+Beide Einstiege werden aus derselben Website-Quelle gebaut. Beide Sprachversionen gehören jeweils zum Projekt ihres Hosts. Acme bleibt ein drittes, getrenntes Projekt. Der Browser sendet direkt an `https://analytics-api.kieks.me/log` (Seitenaufruf) und `/log/custom` (Events). Die Projekt-IDs sind öffentlich; API-Schlüssel werden nicht ausgeliefert.
+
+Das ursprüngliche Projekt `csp-brand` wurde in `csp-marketing` umbenannt. Historische Testaufrufe aus der ersten gemeinsamen Einrichtung bleiben erhalten; die Trennung gilt ab Deployment dieser Änderung. Es werden keine Daten gelöscht oder nachträglich als neue Conversions eingespielt.
 
 ## Aktivierung und Datenschutz
 
-`src/lib/analytics.ts` ist die gemeinsame Browser-Integration im SiteLayout. Tracking ist ausschließlich über HTTPS auf `csp-brand-kieksme.netlify.app` und auf `kieksme.github.io/csp-brand/` aktiv, in beiden Sprachen. Andere Hosts, lokale Entwicklung, Deploy-Previews, Storybook und 404-Seiten senden nichts. Das Swetrix-Projekt erlaubt nur diese beiden Hosts, verwendet Basic-Bot-Schutz und ist nicht öffentlich einsehbar.
+`src/lib/analytics.ts` ist die gemeinsame Browser-Integration im SiteLayout. Tracking ist ausschließlich über HTTPS auf `csp-brand-kieksme.netlify.app` und auf `kieksme.github.io/csp-brand/` aktiv, in beiden Sprachen. Andere Hosts, lokale Entwicklung, Deploy-Previews, Storybook und 404-Seiten senden nichts. Jeder Host wählt genau eine Projekt-ID; es gibt keine Doppelübertragung an beide Projekte. Jedes Swetrix-Projekt erlaubt serverseitig nur seinen eigenen Host, verwendet Basic-Bot-Schutz und ist nicht öffentlich einsehbar.
 
 Do Not Track (`1` oder `yes`) verhindert die Erfassung. Jeder Dokumentaufruf sendet einen Seitenaufruf, auch bei späteren Besuchen derselben Seite; eine doppelte Initialisierung sendet nichts zusätzlich. Es gibt keine Cookies, Browser-Speicherung, eigenen Besucher-IDs, Referrer, Query-/UTM-Parameter, Hashes, Linkziele, E-Mail-Adressen, FAQ-Texte oder Formulareingaben. Übertragen werden Pfad, Sprache, Zeitzone und die unten genannten begrenzten Metadaten. Der Analytics-Server erhält technisch die IP-Adresse und HTTP-Browserinformationen. Es gibt keine automatische Fehlererfassung, Session-Replays oder Retries; ein Netzwerkfehler unterbricht keine Website-Funktion.
 
 ## Custom Events
 
-Alle Events enthalten nur `locale` (`de`/`en`) und `page` (`home`, `plugins`, `brand`, `components`) plus die explizit genannten Metadaten.
+Alle Events enthalten nur `site` (`marketing`/`product`), `locale` (`de`/`en`) und `page` (`home`, `plugins`, `brand`, `components`) plus die explizit genannten Metadaten.
 
 | Event             | Auslöser und weitere Metadaten                                                                           |
 | ----------------- | -------------------------------------------------------------------------------------------------------- |
@@ -31,6 +40,8 @@ Alle Events enthalten nur `locale` (`de`/`en`) und `page` (`home`, `plugins`, `b
 
 ## Gespeicherte Funnels
 
+### Marketing (`csp-marketing`)
+
 | Funnel                    | Schritte                                        |
 | ------------------------- | ----------------------------------------------- |
 | Website zur Demo          | `SITE_VIEW` → `DEMO_CLICK`                      |
@@ -39,8 +50,20 @@ Alle Events enthalten nur `locale` (`de`/`en`) und `page` (`home`, `plugins`, `b
 | Website zum Kontakt       | `SITE_VIEW` → `CONTACT_CLICK`                   |
 | Komponenten zum Download  | `COMPONENTS_VIEW` → `DOWNLOAD_CLICK`            |
 
+### Produkt (`csp-product`)
+
+| Funnel                   | Schritte                                        |
+| ------------------------ | ----------------------------------------------- |
+| Produkt zur Demo         | `SITE_VIEW` → `DEMO_CLICK`                      |
+| Plugin zur Dokumentation | `PLUGINS_CLICK` → `PLUGINS_VIEW` → `DOCS_CLICK` |
+| Komponenten zum Download | `COMPONENTS_VIEW` → `DOWNLOAD_CLICK`            |
+| Produkt zum Quellcode    | `SITE_VIEW` → `SOURCE_CLICK`                    |
+| Produkt zu Kunden-Skills | `SITE_VIEW` → `SKILLS_CLICK`                    |
+
 Die Funnels wurden über Swetrix MCP angelegt. Eventnamen erscheinen im Dashboard erst nach tatsächlichen Interaktionen; es werden keine Registrierungs-Events erfunden. Lokale Browserprüfungen ersetzen nur die Collector-Antwort, während sie den tatsächlichen statischen Website-Build unter der Produktions-Origin ausführen. Live-Erfassung nach Deployment separat über Swetrix-Sitzungen prüfen.
 
 ## English
 
-The bilingual website uses its own private **csp-brand** project, separate from Acme. Only the two production hosts above collect anonymous page views and the listed interaction events. DNT is respected. Local development, preview hosts, Storybook and 404 pages do not collect data. Payloads omit cookies, user input, identifiers, query strings, UTM parameters and referrers. The server necessarily receives network IP and HTTP browser information. Contact and download clicks indicate interest, not completed enquiries or downloads. Five saved funnels cover demo discovery, plugin documentation, FAQ/contact interest and component downloads. The browser test suite checks real interactions, repeat visits and privacy exclusions using a mocked collector.
+The two existing deployments use separate private Swetrix projects: **csp-marketing** for the Netlify marketing entry point and **csp-product** for the GitHub Pages product/developer view. They share the same website source. German and English visits belong to the project selected by the current host; Acme remains separate. Each project has five saved funnels tailored to marketing interest or product adoption. The former shared csp-brand project was renamed csp-marketing; historical setup test data is retained, and separation applies from this deployment onward.
+
+DNT is respected. Local development, preview hosts, unrelated GitHub Pages paths, Storybook and 404 pages do not collect data. Payloads omit cookies, user input, identifiers, query strings, UTM parameters and referrers. The server necessarily receives network IP and HTTP browser information. Contact and download clicks indicate interest, not completed enquiries or downloads. The browser tests check production-host project routing, real interactions, repeat visits and privacy exclusions using a mocked collector. Live collection is verified separately after deployment through Swetrix sessions and funnels.

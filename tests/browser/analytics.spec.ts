@@ -77,7 +77,8 @@ test("production events follow real interactions and omit private data on return
   await page.goto(`${host}/`);
   await expect.poll(() => events.filter((e) => !e.body.ev).length).toBe(3);
   for (const { body, headers } of events) {
-    expect(body.pid).toBe("poqo5aTL3ArD");
+    expect(body.pid).toBe("zU7UlsSu89t1");
+    if (body.ev) expect(body.meta.site).toBe("product");
     expect(body).not.toHaveProperty("unique");
     expect(JSON.stringify(body)).not.toMatch(
       /private-sentinel|mailto|kontakt@|utm_|subject|\?/,
@@ -137,5 +138,55 @@ test("DNT, local development and 404s send no analytics", async ({ page }) => {
   expect(events).toEqual([]);
   await page.goto(`${host}/missing-page/`);
   await page.waitForTimeout(200);
+  expect(events).toEqual([]);
+});
+
+test("Netlify marketing uses its own project and never the product project", async ({
+  page,
+}) => {
+  const events = await website(page);
+  await page.route(
+    "https://csp-brand-kieksme.netlify.app/**",
+    async (route) => {
+      const path = new URL(route.request().url()).pathname;
+      const localPath = path.startsWith("/csp-brand/")
+        ? path
+        : `/csp-brand${path}`;
+      await route.fulfill({
+        response: await page.request.get(`http://127.0.0.1:4322${localPath}`),
+      });
+    },
+  );
+  await page.goto("https://csp-brand-kieksme.netlify.app/");
+  await page.locator(".faq-item summary").first().click();
+  await expect
+    .poll(() => events.some((e) => e.body.ev === "FAQ_OPEN"))
+    .toBe(true);
+  expect(events.filter((e) => !e.body.ev)).toHaveLength(1);
+  for (const { body } of events) {
+    expect(body.pid).toBe("poqo5aTL3ArD");
+    if (body.ev) expect(body.meta.site).toBe("marketing");
+  }
+});
+
+test("unapproved preview hosts and unrelated GitHub Pages paths do not send analytics", async ({
+  page,
+}) => {
+  const events = await website(page);
+  for (const url of [
+    "https://deploy-preview-2--csp-brand-kieksme.netlify.app/",
+    "https://kieksme.github.io/other-site/",
+  ]) {
+    await page.route(`${new URL(url).origin}/**`, async (route) => {
+      const path = new URL(route.request().url()).pathname;
+      const localPath = path.startsWith("/csp-brand/") ? path : "/csp-brand/";
+      await route.fulfill({
+        response: await page.request.get(`http://127.0.0.1:4322${localPath}`),
+      });
+    });
+    await page.goto(url);
+    await page.locator(".faq-item summary").first().click();
+    await page.waitForTimeout(200);
+  }
   expect(events).toEqual([]);
 });

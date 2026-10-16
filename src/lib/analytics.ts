@@ -3,14 +3,17 @@ export function startAnalytics() {
   const root = document.documentElement;
   const page = root.dataset.analyticsPage;
   const locale = root.lang === "de" ? "de" : "en";
-  const allowed =
-    (location.hostname === "csp-brand-kieksme.netlify.app" &&
-      location.protocol === "https:") ||
-    (location.hostname === "kieksme.github.io" &&
-      location.protocol === "https:" &&
-      location.pathname.startsWith("/csp-brand/"));
+  const project =
+    location.protocol !== "https:"
+      ? undefined
+      : location.hostname === "csp-brand-kieksme.netlify.app"
+        ? { id: "poqo5aTL3ArD", site: "marketing" }
+        : location.hostname === "kieksme.github.io" &&
+            location.pathname.startsWith("/csp-brand/")
+          ? { id: "zU7UlsSu89t1", site: "product" }
+          : undefined;
   if (
-    !allowed ||
+    !project ||
     !page ||
     !["home", "plugins", "brand", "components"].includes(page) ||
     navigator.doNotTrack === "1" ||
@@ -30,11 +33,16 @@ export function startAnalytics() {
       keepalive: true,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        pid: "poqo5aTL3ArD",
+        pid: project.id,
         pg: location.pathname,
         lc: locale,
         tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        ...(event ? { ev: event, meta: { locale, page, ...metadata } } : {}),
+        ...(event
+          ? {
+              ev: event,
+              meta: { site: project.site, locale, page, ...metadata },
+            }
+          : {}),
       }),
     }).catch(() => {});
   };
