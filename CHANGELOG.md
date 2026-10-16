@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Getrennte Swetrix-Projekte für Netlify-Marketing und GitHub-Pages-Produktansicht, mit eigenen Funnels und fester Host-Zuordnung ohne Doppelzählung.
+
 - Anonyme Swetrix-Analyse für die deutsche und englische Website, mit eigenen Events und fünf Conversion-Funnels; DNT, Vorschau-Ausschluss und datensparsame Übertragung.
 
 - Storybook 10 für alle UI-Komponenten mit Controls, Autodocs, Actions, CI-Tokens und Light-/Dark-Themes.
