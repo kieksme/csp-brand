@@ -1,5 +1,15 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+
+/** Canonical origin+base for this default Pages-shaped browser build. */
+const canonicalBase =
+  process.env.CSP_BRAND_CANONICAL_URL?.replace(/\/$/, "") ||
+  `${(process.env.CSP_BRAND_SITE_URL || "https://kieksme.github.io").replace(/\/$/, "")}${
+    process.env.CSP_BRAND_CANONICAL_URL
+      ? ""
+      : (process.env.CSP_BRAND_BASE_PATH ?? "/csp-brand").replace(/\/$/, "")
+  }`;
+
 const routes = [
   "",
   "en/",
@@ -55,16 +65,35 @@ for (const path of routes) {
       ).violations,
     ).toEqual([]);
     const canonical = page.locator('link[rel="canonical"]');
-    await expect(canonical).toHaveAttribute(
-      "href",
-      `https://kieksme.github.io/csp-brand/${path}`,
-    );
+    await expect(canonical).toHaveAttribute("href", `${canonicalBase}/${path}`);
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
       "content",
       new RegExp(`social-${path.startsWith("en/") ? "en" : "de"}\\.png$`),
     );
     await expect(page.locator('link[hreflang="de-DE"]')).toHaveCount(1);
     await expect(page.locator('link[hreflang="en-GB"]')).toHaveCount(1);
+    const jsonLd = page.locator('script[type="application/ld+json"]');
+    await expect(jsonLd).toHaveCount(1);
+    const schema = JSON.parse((await jsonLd.textContent()) || "null");
+    expect(schema?.["@context"]).toBe("https://schema.org");
+    expect(Array.isArray(schema?.["@graph"])).toBe(true);
+    expect(
+      schema["@graph"].some(
+        (node: { "@type": string }) => node["@type"] === "Organization",
+      ),
+    ).toBe(true);
+    if (!path || path === "en/") {
+      const types = schema["@graph"].map(
+        (node: { "@type": string }) => node["@type"],
+      );
+      expect(types).toEqual(
+        expect.arrayContaining([
+          "Organization",
+          "SoftwareApplication",
+          "FAQPage",
+        ]),
+      );
+    }
     if (path.includes("plugins")) {
       await expect(page.locator(".plugin-card--detail")).toHaveCount(8);
       await expect(
@@ -108,10 +137,16 @@ test("FAQ, contact, mobile menu and keyboard focus work", async ({
   await question.locator("summary").click();
   await expect(question).toHaveAttribute("open", "");
   await expect(question.locator("p")).toBeVisible();
-  await expect(page.locator("#contact .button")).toHaveAttribute(
-    "href",
-    /^mailto:kontakt@kieks\.me\?subject=/,
-  );
+  const primaryCta = page.locator("#contact .button");
+  const primaryHref = await primaryCta.getAttribute("href");
+  // Booking URL unset (default): mailto primary. When CSP_BRAND_BOOKING_URL is
+  // set at build time, primary is the booking link and mailto stays secondary.
+  if (primaryHref?.startsWith("mailto:")) {
+    expect(primaryHref).toMatch(/^mailto:kontakt@kieks\.me\?subject=/);
+  } else {
+    expect(primaryHref).toBeTruthy();
+    await expect(page.locator('#contact a[href^="mailto:"]')).toHaveCount(1);
+  }
   if (testInfo.project.name === "mobile") {
     const menu = page.locator(".mobile-nav");
     await menu.locator("summary").click();
@@ -161,10 +196,42 @@ test("404 provides a working route back", async ({ page }) => {
   expect(response?.status()).toBe(404);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
-    "noindex",
+    "noindex, follow",
   );
   await page.locator(".notfound .button").click();
   await expect(page).toHaveURL(/\/csp-brand\/$/);
+});
+
+test("robots.txt allows indexing and points at the sitemap", async ({
+  page,
+}) => {
+  const response = await page.request.get("/csp-brand/robots.txt");
+  expect(response.status()).toBe(200);
+  const body = await response.text();
+  expect(body).toContain("User-agent: *");
+  expect(body).toContain("Allow: /");
+  expect(body).toContain("Disallow: /storybook/");
+  expect(body).toContain("Disallow: /downloads/");
+  expect(body).toMatch(
+    /Sitemap: https:\/\/kieksme\.github\.io\/csp-brand\/sitemap-index\.xml/,
+  );
+});
+
+test("thanks pages are noindex and reachable in both languages", async ({
+  page,
+}) => {
+  for (const path of ["danke/", "en/thanks/"]) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(200);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      "noindex, follow",
+    );
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(
+      page.locator('script[type="application/ld+json"]'),
+    ).toHaveCount(0);
+  }
 });
 
 test("shared React catalogue hydrates and the installable package is downloadable", async ({

@@ -5,9 +5,11 @@ import "@kieksme/csp-ui/styles.css";
 import "../../styles/global.css";
 import Header from "../organisms/Header.astro";
 import Footer from "../organisms/Footer.astro";
-import { asset, route } from "../../lib/paths";
+import { asset, publicPath, route } from "../../lib/paths";
 import type { Locale, PageKind } from "../../lib/paths";
 import { text } from "../../data/copy";
+import { buildJsonLd } from "../../lib/jsonld";
+import { canonicalPageUrl, shouldNoindex } from "../../lib/site";
 interface Props {
   locale: Locale;
   page?: PageKind;
@@ -24,12 +26,29 @@ const {
 } = Astro.props;
 const absolute = (url: string) => new URL(url, Astro.site!).href;
 const image = absolute(asset(`brand/social-${locale}.png`));
+const logoFallback = absolute(asset("brand/apple-touch-icon.png"));
+// Prefer configured canonical origin (P1-1); fall back to this build's absolute route.
+const pageCanonical = process.env.CSP_BRAND_CANONICAL_URL
+  ? canonicalPageUrl(publicPath(locale, page))
+  : absolute(route(locale, page));
+const seoNoindex = noindex || shouldNoindex();
+// 404 suppresses analytics; thanks stays trackable for BOOKING_CONFIRMED.
+const suppressAnalytics = noindex && page !== "thanks";
+const jsonLd =
+  page === "thanks"
+    ? null
+    : buildJsonLd({
+        locale,
+        page,
+        logoFallback,
+        description,
+      });
 ---
 
 <!doctype html>
 <html
   lang={locale === "de" ? "de" : "en-GB"}
-  data-analytics-page={noindex ? undefined : page}
+  data-analytics-page={suppressAnalytics ? undefined : page}
 >
   <head>
     <meta charset="UTF-8" />
@@ -37,14 +56,34 @@ const image = absolute(asset(`brand/social-${locale}.png`));
     <meta name="theme-color" content="#006b64" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex" />}
-    <link rel="canonical" href={absolute(route(locale, page))} />
-    <link rel="alternate" hreflang="de-DE" href={absolute(route("de", page))} />
-    <link rel="alternate" hreflang="en-GB" href={absolute(route("en", page))} />
+    {seoNoindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={pageCanonical} />
+    <link
+      rel="alternate"
+      hreflang="de-DE"
+      href={
+        process.env.CSP_BRAND_CANONICAL_URL
+          ? canonicalPageUrl(publicPath("de", page))
+          : absolute(route("de", page))
+      }
+    />
+    <link
+      rel="alternate"
+      hreflang="en-GB"
+      href={
+        process.env.CSP_BRAND_CANONICAL_URL
+          ? canonicalPageUrl(publicPath("en", page))
+          : absolute(route("en", page))
+      }
+    />
     <link
       rel="alternate"
       hreflang="x-default"
-      href={absolute(route("de", page))}
+      href={
+        process.env.CSP_BRAND_CANONICAL_URL
+          ? canonicalPageUrl(publicPath("de", page))
+          : absolute(route("de", page))
+      }
     />
     <link rel="icon" type="image/svg+xml" href={asset("brand/icon.svg")} />
     <link
@@ -57,7 +96,7 @@ const image = absolute(asset(`brand/social-${locale}.png`));
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={absolute(route(locale, page))} />
+    <meta property="og:url" content={pageCanonical} />
     <meta property="og:site_name" content="CSP by kieks.me" />
     <meta property="og:locale" content={locale === "de" ? "de_DE" : "en_GB"} />
     <meta
@@ -88,6 +127,9 @@ const image = absolute(asset(`brand/social-${locale}.png`));
           : "CSP: Your service portal. Your code. Your freedom."
       }
     />
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
   </head>
   <body>
     <a class="skip-link" href="#main">

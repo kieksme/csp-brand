@@ -2,10 +2,19 @@
 interface Props {
   href: string;
   active?: boolean;
+  "data-analytics-placement"?: string;
 }
-const { href, active = false } = Astro.props;
+const {
+  href,
+  active = false,
+  "data-analytics-placement": analyticsPlacement,
+} = Astro.props;
 ---
 
-<a href={href} aria-current={active ? "page" : undefined}>
+<a
+  href={href}
+  aria-current={active ? "page" : undefined}
+  data-analytics-placement={analyticsPlacement}
+>
   <slot />
 </a>

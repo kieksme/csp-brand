@@ -207,6 +207,12 @@ export const copy = {
       text: "Vielleicht ist der Link veraltet. Über die Startseite finden Sie Portal, Plugins und Kontakt.",
       link: "Zur Startseite",
     },
+    thanks: {
+      title: "Termin bestätigt · CSP by kieks.me",
+      heading: "Termin bestätigt.",
+      text: "Vielen Dank. Wir melden uns zum vereinbarten Zeitpunkt.",
+      link: "Zur Startseite",
+    },
     aiService: {
       eyebrow: "KI-ENTLASTUNG / FREIE WAHL",
       title: "Weniger Routine.\nMehr Zeit für Service.",
@@ -434,6 +440,12 @@ export const copy = {
     notfound: {
       title: "This page isn’t here.",
       text: "The link may be out of date. Find the portal, plugins and contact on the homepage.",
+      link: "Back to the homepage",
+    },
+    thanks: {
+      title: "Booking confirmed · CSP by kieks.me",
+      heading: "Booking confirmed.",
+      text: "Thank you. We will talk at the scheduled time.",
       link: "Back to the homepage",
     },
     aiService: {

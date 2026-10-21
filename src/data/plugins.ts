@@ -21,6 +21,7 @@ export interface Plugin {
   requires: PluginId[];
 }
 /** Reviewed against CSP 0.13.4 documentation on 2026-10-13. */
+export const productVersion = "0.13.4";
 export const plugins = [
   {
     id: "contact",

@@ -53,6 +53,8 @@ UI-Icons verwenden Lucide über `src/components/atoms/Icon.astro`. Die typisiert
 
 GitHub Actions prüft Formatierung, Typen, Katalog/Übersetzungen, Build und Desktop-/Mobil-Browserfälle. Nur ein erfolgreicher Main-Build deployt zu GitHub Pages. Unter Settings → Pages muss die Quelle GitHub Actions sein. `astro.config.mjs` verwendet standardmäßig die Pages-Origin und `/csp-brand`. Netlify baut über `netlify.toml` mit Basispfad `/` und der Site-URL aus der Netlify-Umgebung. Eine eigene Domain kann über `CSP_BRAND_SITE_URL` gesetzt werden. Für einen lokalen Root-Build: `CSP_BRAND_BASE_PATH=/ CSP_BRAND_SITE_URL=https://example.netlify.app pnpm build`.
 
+SEO-Hosts und Buchung bleiben konfigurierbar, bis die Marketing-Entscheidungen feststehen (siehe `.env.example`): `CSP_BRAND_CANONICAL_URL` / `CSP_BRAND_NOINDEX` für einen nicht indexierten Zweit-Host, `CSP_BRAND_BOOKING_URL` für den Buchungs-CTA (leer = bisheriges mailto-Verhalten), plus optionale JSON-LD-Werte `CSP_BRAND_ORG_LOCALITY` und `CSP_BRAND_ORG_LOGO_URL`.
+
 Impressum und Datenschutz verlinken auf die bestehenden Anbieter-Seiten. Diese Website sendet Anfragen über den E-Mail-Client und verarbeitet kein eigenes Kontaktformular. Quellcode/Skills sind MIT, Brand-Assets separat lizenziert. Siehe THIRD-PARTY-NOTICES.md für Schrift- und Bildhinweise.
 
 ## English

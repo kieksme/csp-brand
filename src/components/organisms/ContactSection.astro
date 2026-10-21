@@ -2,7 +2,7 @@
 import Icon from "../atoms/Icon.astro";
 import SectionHeading from "../molecules/SectionHeading.astro";
 import Button from "../atoms/Button.astro";
-import { contactUrl } from "../../lib/paths";
+import { bookingUrl, contactUrl, primaryCtaUrl } from "../../lib/paths";
 import type { Locale } from "../../lib/paths";
 import { text } from "../../data/copy";
 interface Props {
@@ -10,6 +10,8 @@ interface Props {
 }
 const { locale } = Astro.props;
 const t = text(locale);
+const primaryHref = primaryCtaUrl(locale);
+const primaryIsBooking = Boolean(bookingUrl);
 ---
 
 <section data-analytics-section="contact" id="contact" class="contact-section">
@@ -20,10 +22,18 @@ const t = text(locale);
       description={t.cta.text}
     />
     <div>
-      <Button href={contactUrl(locale)} variant="light">
+      <Button
+        href={primaryHref}
+        variant="light"
+        data-analytics-placement={primaryIsBooking ? "contact" : undefined}
+      >
         {t.contact}
       </Button>
-      <a class="contact-mail" href="mailto:kontakt@kieks.me">
+      <a
+        class="contact-mail"
+        href={primaryIsBooking ? contactUrl(locale) : "mailto:kontakt@kieks.me"}
+        data-analytics-placement="contact"
+      >
         kontakt@kieks.me
       </a>
     </div>

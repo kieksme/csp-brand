@@ -4,10 +4,21 @@ interface Props {
   href: string;
   variant?: "primary" | "secondary" | "light";
   arrow?: boolean;
+  "data-analytics-placement"?: string;
 }
-const { href, variant = "primary", arrow = true } = Astro.props;
+const {
+  href,
+  variant = "primary",
+  arrow = true,
+  "data-analytics-placement": analyticsPlacement,
+} = Astro.props;
 ---
 
-<LinkButton href={href} variant={variant} hasArrow={arrow}>
+<LinkButton
+  href={href}
+  variant={variant}
+  hasArrow={arrow}
+  data-analytics-placement={analyticsPlacement}
+>
   <slot />
 </LinkButton>

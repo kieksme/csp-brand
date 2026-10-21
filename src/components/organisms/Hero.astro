@@ -2,7 +2,7 @@
 import Icon from "../atoms/Icon.astro";
 import Button from "../atoms/Button.astro";
 import Badge from "../atoms/Badge.astro";
-import { asset, contactUrl, demoUrl } from "../../lib/paths";
+import { asset, bookingUrl, demoUrl, primaryCtaUrl } from "../../lib/paths";
 import type { Locale } from "../../lib/paths";
 import { text } from "../../data/copy";
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
 }
 const { locale } = Astro.props;
 const t = text(locale);
+const ctaHref = primaryCtaUrl(locale);
 ---
 
 <section class="hero">
@@ -26,7 +27,12 @@ const t = text(locale);
       </h1>
       <p class="hero-description">{t.hero.text}</p>
       <div class="button-row">
-        <Button href={contactUrl(locale)}>{t.contact}</Button>
+        <Button
+          href={ctaHref}
+          data-analytics-placement={bookingUrl ? "hero" : undefined}
+        >
+          {t.contact}
+        </Button>
         <Button href={demoUrl} variant="secondary">
           {t.demo}
         </Button>
