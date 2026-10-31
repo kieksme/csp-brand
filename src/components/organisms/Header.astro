@@ -29,7 +29,8 @@ const bookingPlacement = bookingUrl ? "header" : undefined;
       <NavLink href={route(locale, "plugins")} active={page === "plugins"}>
         {t.nav[1]}
       </NavLink>
-      <NavLink href={`${route(locale)}#project`}>{t.nav[2]}</NavLink>
+      <NavLink href={`${route(locale)}#offer`}>{t.nav[2]}</NavLink>
+      <NavLink href={`${route(locale)}#project`}>{t.nav[3]}</NavLink>
     </nav>
     <div class="header-actions">
       <a
@@ -61,7 +62,8 @@ const bookingPlacement = bookingUrl ? "header" : undefined;
       >
         <NavLink href={`${route(locale)}#portal`}>{t.nav[0]}</NavLink>
         <NavLink href={route(locale, "plugins")}>{t.nav[1]}</NavLink>
-        <NavLink href={`${route(locale)}#project`}>{t.nav[2]}</NavLink>
+        <NavLink href={`${route(locale)}#offer`}>{t.nav[2]}</NavLink>
+        <NavLink href={`${route(locale)}#project`}>{t.nav[3]}</NavLink>
         <NavLink href={ctaHref} data-analytics-placement={bookingPlacement}>
           {t.contact}
         </NavLink>

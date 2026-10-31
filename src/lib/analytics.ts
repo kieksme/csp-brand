@@ -90,6 +90,7 @@ export function startAnalytics() {
     "ai-service",
     "plugins",
     "ownership",
+    "offer",
     "project",
     "skills",
     "faq",

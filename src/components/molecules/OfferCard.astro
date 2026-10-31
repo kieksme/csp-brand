@@ -1,0 +1,30 @@
+---
+import Badge from "../atoms/Badge.astro";
+interface Props {
+  tag: string;
+  title: string;
+  text: string;
+  groups?: { label: string; items: string[] }[];
+  note?: string;
+}
+const { tag, title, text, groups = [], note } = Astro.props;
+---
+
+<article class="offer-card">
+  <span class="card-number">{tag}</span>
+  <h3>{title}</h3>
+  <p>{text}</p>
+  {groups.map((group) => (
+    <div class="offer-group">
+      <p class="offer-group-label">{group.label}</p>
+      <ul class="offer-badges">
+        {group.items.map((item) => (
+          <li>
+            <Badge>{item}</Badge>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+  {note && <p class="offer-note">{note}</p>}
+</article>
