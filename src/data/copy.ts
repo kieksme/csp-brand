@@ -4,7 +4,7 @@ export const copy = {
     title: "CSP by kieks.me · Ihr Serviceportal. Ihr Code. Ihre Freiheit.",
     description:
       "Open-Source-Serviceportal für Ihren Mittelstand. Wir richten CSP ein, integrieren Ihre Systeme und übergeben Code und Skills. Kein verpflichtendes Abo.",
-    nav: ["Das Portal", "Plugins", "Ihr Projekt"],
+    nav: ["Das Portal", "Plugins", "Angebot", "Ihr Projekt"],
     contact: "Integration besprechen",
     demo: "Demo ansehen",
     source: "Quellcode ansehen",
@@ -86,11 +86,55 @@ export const copy = {
       ],
       cost: "Kostenklarheit gehört dazu: Hosting, SIGNL4, Microsoft-/Slack-Dienste und KI-Anbieter können eigene Kosten verursachen. Diese werden vorab besprochen und separat ausgewiesen.",
     },
+    offer: {
+      eyebrow: "04 / UNSER ANGEBOT",
+      title: "Drei Stufen.\nKlare Verantwortung.",
+      intro:
+        "Für Verantwortliche im Betrieb: Aufwand, Übergabe und Zuständigkeit sind je Stufe klar getrennt. Sie beauftragen nur, was Sie brauchen.",
+      steps: [
+        {
+          tag: "Stufe 1 · Paketpreis",
+          title: "Integration und Beratung",
+          text: "Wir richten CSP in Ihrer Umgebung ein und binden Ihre Systeme an – selbst oder gemeinsam mit Ihrem Team. Der Paketpreis wird nach Klärung des Umfangs vereinbart; Preise nennen wir auf Anfrage.",
+          groups: [
+            {
+              label: "Betriebsumgebung",
+              items: ["On-Premise", "Azure", "AWS", "Google Cloud"],
+            },
+            {
+              label: "Anmeldung und Berechtigungen",
+              items: [
+                "z. B. Entra ID",
+                "z. B. Keycloak",
+                "Weitere nach Absprache",
+              ],
+            },
+          ],
+          note: "Umgebung und Anmeldesystem werden vor Projektbeginn geprüft. Compliance- und Governance-Anforderungen klären wir von Beginn an und berücksichtigen sie in der Umsetzung; das ist keine Zertifizierungs- oder DSGVO-Zusage. KI bleibt optional: Ein Betrieb mit lokalen Modellen oder z. B. Azure AI Foundry ist nach Projektprüfung möglich.",
+        },
+        {
+          tag: "Stufe 2",
+          title: "Schulung für Betrieb und Entwicklung",
+          text: "Operations lernt Betrieb, Updates und Monitoring. Development lernt die Weiterentwicklung mit CSP-SDK und Skills. Ziel ist, dass Ihr Team CSP ohne uns betreiben und erweitern kann.",
+          groups: [
+            { label: "Zielgruppen", items: ["Operations", "Development"] },
+          ],
+        },
+        {
+          tag: "Stufe 3 · Optional",
+          title: "Betreuung nach Vereinbarung",
+          text: "Laufende Pflege über Rahmenvertrag oder Subscription – nur, wenn Sie diese ausdrücklich beauftragen. Ohne Betreuung bleibt der Betrieb wie vereinbart bei Ihnen.",
+          groups: [],
+        },
+      ],
+      about:
+        "Herausgeberin von CSP ist die kieks.me GbR. Wir arbeiten auch als AI Consultant; zwei AI Solution Architects begleiten Integration und Schulung.",
+    },
     process: {
-      eyebrow: "04 / VOM PLAN ZUM PORTAL",
+      eyebrow: "05 / VOM PLAN ZUM PORTAL",
       title: "Ein Projekt.\nEine saubere Übergabe.",
       description:
-        "Der Umfang entsteht aus Ihren Anforderungen. Keine versteckten Pakete, keine erfundenen Festpreise.",
+        "Umfang und Preis entstehen aus Ihren Anforderungen. Jede Stufe wird vorab abgestimmt, nichts läuft ohne Ihre Beauftragung.",
       steps: [
         {
           title: "Verstehen",
@@ -111,7 +155,7 @@ export const copy = {
       ],
     },
     skills: {
-      eyebrow: "05 / WISSEN BLEIBT BEI IHNEN",
+      eyebrow: "06 / WISSEN BLEIBT BEI IHNEN",
       title: "Nicht nur eingerichtet.\nAuch weitergedacht.",
       text: "Im Paket enthalten: versionierte Skills für KI-Coding-Assistenten. Sie geben Ihrem Team konkrete Arbeitsabläufe und Prüfungen für die eigene Weiterentwicklung.",
       items: [
@@ -136,6 +180,21 @@ export const copy = {
       eyebrow: "NOCH FRAGEN?",
       title: "Gut zu wissen.",
       items: [
+        {
+          question: "Welche Umgebungen und Anmeldesysteme sind möglich?",
+          answer:
+            "Wir betrachten On-Premise, Azure, AWS und Google Cloud. Für Anmeldung und Berechtigungen nennen wir z. B. Entra ID und Keycloak; weitere Systeme nach Absprache. Ob Ihre Umgebung passt, prüfen wir vor Projektbeginn.",
+        },
+        {
+          question: "Was kostet die Integration?",
+          answer:
+            "Integration und Beratung werden als Paketpreis vereinbart. Den Betrag nennen wir auf Anfrage, nachdem Umfang, Umgebung und Anbindungen geklärt sind. Hosting und externe Dienste können gesondert anfallen.",
+        },
+        {
+          question: "Gibt es Schulung und laufende Betreuung?",
+          answer:
+            "Ja. Die Schulung für Operations und Development ist die zweite Stufe. Eine laufende Betreuung über Rahmenvertrag oder Subscription ist optional und wird nur auf Ihre ausdrückliche Beauftragung erbracht.",
+        },
         {
           question: "Was genau bezahlen wir?",
           answer:
@@ -236,7 +295,7 @@ export const copy = {
     title: "CSP by kieks.me · Your service portal. Your code. Your freedom.",
     description:
       "An open-source service portal for your business. We set up CSP, integrate your systems and hand over code and skills. No mandatory subscription.",
-    nav: ["The portal", "Plugins", "Your project"],
+    nav: ["The portal", "Plugins", "Offer", "Your project"],
     contact: "Discuss integration",
     demo: "Explore the demo",
     source: "View source code",
@@ -322,11 +381,55 @@ export const copy = {
       ],
       cost: "Clear costs are part of the deal: hosting, SIGNL4, Microsoft/Slack services and AI providers may have their own fees. These are discussed upfront and listed separately.",
     },
+    offer: {
+      eyebrow: "04 / OUR OFFER",
+      title: "Three stages.\nClear responsibility.",
+      intro:
+        "For those accountable for operations: effort, handover and ownership are separated for each stage. You commission only what you need.",
+      steps: [
+        {
+          tag: "Stage 1 · Package price",
+          title: "Integration and consulting",
+          text: "We set up CSP in your environment and connect your systems – ourselves or together with your team. The package price is agreed once the scope is clear; prices are provided on request.",
+          groups: [
+            {
+              label: "Operating environment",
+              items: ["On-premises", "Azure", "AWS", "Google Cloud"],
+            },
+            {
+              label: "Sign-in and permissions",
+              items: [
+                "e.g. Entra ID",
+                "e.g. Keycloak",
+                "Others by arrangement",
+              ],
+            },
+          ],
+          note: "Environment and sign-in system are reviewed before the project starts. We clarify compliance and governance requirements from the beginning and take them into account in the implementation; this is not a certification or GDPR commitment. AI stays optional: operation with local models or, for example, Azure AI Foundry is possible after a project review.",
+        },
+        {
+          tag: "Stage 2",
+          title: "Training for operations and development",
+          text: "Operations learns running, updating and monitoring. Development learns how to extend CSP with the CSP SDK and skills. The aim is for your team to run and extend CSP without us.",
+          groups: [
+            { label: "Audiences", items: ["Operations", "Development"] },
+          ],
+        },
+        {
+          tag: "Stage 3 · Optional",
+          title: "Support by agreement",
+          text: "Ongoing maintenance through a framework agreement or subscription – only if you explicitly commission it. Without support, operation stays with you as agreed.",
+          groups: [],
+        },
+      ],
+      about:
+        "CSP is published by kieks.me GbR. We also work as an AI consultant; two AI solution architects support integration and training.",
+    },
     process: {
-      eyebrow: "04 / FROM PLAN TO PORTAL",
+      eyebrow: "05 / FROM PLAN TO PORTAL",
       title: "One project.\nA proper handover.",
       description:
-        "The scope follows your requirements. No hidden bundles, no made-up fixed prices.",
+        "Scope and price follow your requirements. Every stage is agreed upfront; nothing happens without your commission.",
       steps: [
         {
           title: "Understand",
@@ -347,7 +450,7 @@ export const copy = {
       ],
     },
     skills: {
-      eyebrow: "05 / KNOWLEDGE STAYS WITH YOU",
+      eyebrow: "06 / KNOWLEDGE STAYS WITH YOU",
       title: "Set up for today.\nReady for your next idea.",
       text: "Included: versioned skills for AI coding assistants. They give your team practical workflows and checks to develop the portal further.",
       items: [
@@ -372,6 +475,21 @@ export const copy = {
       eyebrow: "A FEW MORE ANSWERS",
       title: "Good to know.",
       items: [
+        {
+          question: "Which environments and sign-in systems are possible?",
+          answer:
+            "We consider on-premises, Azure, AWS and Google Cloud. For sign-in and permissions we mention, for example, Entra ID and Keycloak; others by arrangement. We check whether your environment fits before the project starts.",
+        },
+        {
+          question: "What does the integration cost?",
+          answer:
+            "Integration and consulting are agreed as a package price. We provide the amount on request once scope, environment and connections are clear. Hosting and external services may be charged separately.",
+        },
+        {
+          question: "Is there training and ongoing support?",
+          answer:
+            "Yes. Training for operations and development is the second stage. Ongoing support through a framework agreement or subscription is optional and only provided when you explicitly commission it.",
+        },
         {
           question: "What exactly do we pay for?",
           answer:

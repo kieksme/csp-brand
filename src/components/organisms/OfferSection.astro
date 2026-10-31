@@ -1,0 +1,23 @@
+---
+import SectionHeading from "../molecules/SectionHeading.astro";
+import OfferCard from "../molecules/OfferCard.astro";
+import type { Locale } from "../../lib/paths";
+import { text } from "../../data/copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = text(locale).offer;
+---
+
+<section data-analytics-section="offer" id="offer" class="section">
+  <div class="container">
+    <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.intro} />
+    <div class="offer-grid">
+      {t.steps.map((item) => (
+        <OfferCard {...item} />
+      ))}
+    </div>
+    <p class="offer-about">{t.about}</p>
+  </div>
+</section>

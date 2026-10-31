@@ -94,6 +94,13 @@ for (const path of routes) {
         ]),
       );
     }
+    if (!path || path === "en/") {
+      const offer = page.locator("#offer");
+      await expect(offer).toHaveCount(1);
+      await expect(offer.locator(".offer-card")).toHaveCount(3);
+      await expect(offer).toContainText("kieks.me GbR");
+      await expect(page.locator('a[href$="#offer"]')).toHaveCount(2);
+    }
     if (path.includes("plugins")) {
       await expect(page.locator(".plugin-card--detail")).toHaveCount(8);
       await expect(
