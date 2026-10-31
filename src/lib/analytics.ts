@@ -1,12 +1,44 @@
+import { bookingUrl } from "./paths";
+
+const BOOKING_PLACEMENTS = new Set([
+  "header",
+  "hero",
+  "contact",
+  "msp-hero",
+  "msp-cta",
+]);
+const CONTACT_PLACEMENTS = new Set([
+  "header",
+  "hero",
+  "contact",
+  "msp-hero",
+  "msp-cta",
+]);
+const PUBLIC_PAGES = new Set([
+  "home",
+  "plugins",
+  "brand",
+  "components",
+  "thanks",
+]);
+
 /** Anonymous website events. No SDK enrichment, identifiers or URL parameters. */
 export function startAnalytics() {
   const root = document.documentElement;
   const page = root.dataset.analyticsPage;
   const locale = root.lang === "de" ? "de" : "en";
+  // TODO: ⟦PLATZHALTER: Domain⟧ (E1) — add CSP_BRAND_MARKETING_HOST when the
+  // canonical marketing hostname is decided; keep Netlify default meanwhile.
+  const marketingHost =
+    typeof import.meta.env.CSP_BRAND_MARKETING_HOST === "string"
+      ? import.meta.env.CSP_BRAND_MARKETING_HOST.trim().toLowerCase()
+      : "";
   const project =
     location.protocol !== "https:"
       ? undefined
-      : location.hostname === "csp-brand-kieksme.netlify.app"
+      : location.hostname === "csp-brand-kieksme.netlify.app" ||
+          (marketingHost !== "" &&
+            location.hostname.toLowerCase() === marketingHost)
         ? { id: "poqo5aTL3ArD", site: "marketing" }
         : location.hostname === "kieksme.github.io" &&
             location.pathname.startsWith("/csp-brand/")
@@ -15,7 +47,7 @@ export function startAnalytics() {
   if (
     !project ||
     !page ||
-    !["home", "plugins", "brand", "components"].includes(page) ||
+    !PUBLIC_PAGES.has(page) ||
     navigator.doNotTrack === "1" ||
     navigator.doNotTrack === "yes" ||
     root.dataset.analyticsStarted
@@ -50,6 +82,8 @@ export function startAnalytics() {
   send("SITE_VIEW");
   if (page === "plugins") send("PLUGINS_VIEW");
   if (page === "components") send("COMPONENTS_VIEW");
+  // Conversion: booking tool redirected here after a confirmed appointment.
+  if (page === "thanks") send("BOOKING_CONFIRMED");
 
   const sections = new Set([
     "portal",
@@ -100,8 +134,19 @@ export function startAnalytics() {
       event.target instanceof Element ? event.target.closest("a") : null;
     if (!link || event.defaultPrevented) return;
     const url = new URL(link.href, location.href);
-    if (link.classList.contains("language-link")) send("LANGUAGE_SWITCH");
-    else if (url.protocol === "mailto:") send("CONTACT_CLICK");
+    const placement = link.dataset.analyticsPlacement;
+    // Booking before mailto so a future booking URL is never counted as contact.
+    if (bookingUrl && link.href.startsWith(bookingUrl))
+      send(
+        "BOOKING_CLICK",
+        placement && BOOKING_PLACEMENTS.has(placement) ? { placement } : {},
+      );
+    else if (link.classList.contains("language-link")) send("LANGUAGE_SWITCH");
+    else if (url.protocol === "mailto:")
+      send(
+        "CONTACT_CLICK",
+        placement && CONTACT_PLACEMENTS.has(placement) ? { placement } : {},
+      );
     else if (
       url.origin === "https://kieksme.github.io" &&
       url.pathname.startsWith("/csp-acme/")

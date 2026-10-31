@@ -190,3 +190,40 @@ test("unapproved preview hosts and unrelated GitHub Pages paths do not send anal
   }
   expect(events).toEqual([]);
 });
+
+test("thanks page emits BOOKING_CONFIRMED without private payload fields", async ({
+  page,
+}) => {
+  const events = await website(page);
+  await page.goto(`${host}/danke/`);
+  await expect
+    .poll(() => events.some((e) => e.body.ev === "BOOKING_CONFIRMED"))
+    .toBe(true);
+  const confirmed = events.filter((e) => e.body.ev === "BOOKING_CONFIRMED");
+  expect(confirmed).toHaveLength(1);
+  expect(confirmed[0].body.meta).toMatchObject({
+    site: "product",
+    locale: "de",
+    page: "thanks",
+  });
+  expect(JSON.stringify(confirmed[0].body)).not.toMatch(
+    /mailto|kontakt@|utm_|\?/,
+  );
+});
+
+test("booking click wiring stays dormant when no booking URL is configured", async ({
+  page,
+}) => {
+  const events = await website(page);
+  await page.goto(`${host}/`);
+  await page.evaluate(() =>
+    window.addEventListener("click", (event) => {
+      if ((event.target as Element).closest("a")) event.preventDefault();
+    }),
+  );
+  await page.locator("#contact .button").click();
+  await expect
+    .poll(() => events.some((e) => e.body.ev === "CONTACT_CLICK"))
+    .toBe(true);
+  expect(events.some((e) => e.body.ev === "BOOKING_CLICK")).toBe(false);
+});

@@ -1,0 +1,18 @@
+---
+import SiteLayout from "../../components/templates/SiteLayout.astro";
+import Button from "../../components/atoms/Button.astro";
+import { route } from "../../lib/paths";
+import { text } from "../../data/copy";
+const locale = "de" as const;
+const t = text(locale).thanks;
+---
+
+<SiteLayout locale={locale} page="thanks" title={t.title} noindex>
+  <section class="notfound">
+    <div class="container">
+      <h1>{t.heading}</h1>
+      <p>{t.text}</p>
+      <Button href={route(locale)}>{t.link}</Button>
+    </div>
+  </section>
+</SiteLayout>

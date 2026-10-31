@@ -6,3 +6,7 @@
   NODE_VERSION = "22"
   PNPM_VERSION = "12.8.1"
   CSP_BRAND_BASE_PATH = "/"
+  # TODO: ⟦PLATZHALTER: Domain⟧ (E1) — set the indexed marketing origin once decided.
+  # CSP_BRAND_SITE_URL = "https://csp.example"
+  # TODO: ⟦PLATZHALTER: Buchungs-URL⟧ (E3) — set when the booking tool is chosen.
+  # CSP_BRAND_BOOKING_URL = "https://example.com/book"

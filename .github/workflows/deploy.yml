@@ -20,6 +20,12 @@ jobs:
           node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # TODO: ⟦PLATZHALTER: Domain / Host indexing⟧ (E1/E2) — when the single
+      # canonical marketing origin is decided, build Pages with:
+      #   CSP_BRAND_CANONICAL_URL: https://csp.example
+      #   CSP_BRAND_NOINDEX: "true"
+      # so this host stays out of the search index. Do not enable until DNS
+      # and Netlify primary domain are ready (nothing goes live from this PR).
       - run: pnpm check
       - run: pnpm exec playwright install --with-deps chromium
       - name: Verify Storybook render, interaction and accessibility tests

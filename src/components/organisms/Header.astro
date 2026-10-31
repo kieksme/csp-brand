@@ -3,7 +3,7 @@ import Icon from "../atoms/Icon.astro";
 import Logo from "../atoms/Logo.astro";
 import Button from "../atoms/Button.astro";
 import NavLink from "../molecules/NavLink.astro";
-import { route, contactUrl } from "../../lib/paths";
+import { route, bookingUrl, primaryCtaUrl } from "../../lib/paths";
 import type { Locale, PageKind } from "../../lib/paths";
 import { text } from "../../data/copy";
 interface Props {
@@ -12,6 +12,8 @@ interface Props {
 }
 const { locale, page = "home" } = Astro.props;
 const t = text(locale);
+const ctaHref = primaryCtaUrl(locale);
+const bookingPlacement = bookingUrl ? "header" : undefined;
 ---
 
 <header class="site-header">
@@ -42,7 +44,9 @@ const t = text(locale);
         {locale === "de" ? "EN" : "DE"}
       </a>
       <span class="header-contact">
-        <Button href={contactUrl(locale)}>{t.contact}</Button>
+        <Button href={ctaHref} data-analytics-placement={bookingPlacement}>
+          {t.contact}
+        </Button>
       </span>
     </div>
     <details class="mobile-nav">
@@ -58,7 +62,9 @@ const t = text(locale);
         <NavLink href={`${route(locale)}#portal`}>{t.nav[0]}</NavLink>
         <NavLink href={route(locale, "plugins")}>{t.nav[1]}</NavLink>
         <NavLink href={`${route(locale)}#project`}>{t.nav[2]}</NavLink>
-        <NavLink href={contactUrl(locale)}>{t.contact}</NavLink>
+        <NavLink href={ctaHref} data-analytics-placement={bookingPlacement}>
+          {t.contact}
+        </NavLink>
       </nav>
     </details>
   </div>
