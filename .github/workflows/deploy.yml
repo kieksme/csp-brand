@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  pages: read
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
@@ -20,18 +21,6 @@ jobs:
           node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Read GitHub Pages URL
-        id: pages
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: actions/configure-pages@v6
-      - name: Set marketing site URL and base path
-        if: steps.pages.outcome == 'success'
-        env:
-          PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
-          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-        run: |
-          printf 'CSP_BRAND_SITE_URL=%s\nCSP_BRAND_BASE_PATH=%s\n' \
-            "$PAGES_ORIGIN" "${PAGES_BASE_PATH:-/}" >> "$GITHUB_ENV"
       - run: pnpm check
       - run: pnpm exec playwright install --with-deps chromium
       - name: Verify Storybook render, interaction and accessibility tests
@@ -45,6 +34,16 @@ jobs:
           name: browser-failures
           path: test-results/
           retention-days: 7
+      - name: Read GitHub Pages URL
+        id: pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/configure-pages@v6
+      - name: Build for the configured Pages URL
+        if: steps.pages.outcome == 'success'
+        env:
+          CSP_BRAND_SITE_URL: ${{ steps.pages.outputs.origin }}
+          CSP_BRAND_BASE_PATH: ${{ steps.pages.outputs.base_path || '/' }}
+        run: pnpm build
       - uses: actions/upload-pages-artifact@v5
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
